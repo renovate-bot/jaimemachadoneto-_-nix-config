@@ -143,3 +143,77 @@ sudo ln -s /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt /etc/ssl/ce
 
 See https://github.com/NixOS/nix/issues/2899#issuecomment-1669501326
 
+
+
+# Setting Up Linux Development Environment on WSL
+
+This guide helps you set up a Linux development environment using Windows Subsystem for Linux (WSL).
+
+## Prerequisites
+
+1. **Docker Desktop**
+    - Install Docker Desktop for Windows
+    - Enable WSL integration in Docker Desktop settings
+
+## WSL Installation
+
+1. **Install WSL**
+    ```powershell
+    wsl --install
+    ```
+
+2. **Install Ubuntu Distribution**
+    ```powershell
+    wsl --install -d Ubuntu
+    ```
+*Note: Make sure your Windows system meets the requirements for WSL 2.*
+
+## Installing Nix Package Manager
+
+1. **Install Nix**
+    ```bash
+    # Single-user installation (recommended for WSL)
+    sh <(curl -L https://nixos.org/nix/install) --no-daemon
+
+    # Multi-user installation (not recommended for WSL)
+    sh <(curl -L https://nixos.org/nix/install) --daemon
+
+    # Note: WSL has limitations with systemd, so single-user (no-daemon) installation is preferred
+    ```
+
+2. **Source Nix Environment**
+    ```bash
+    # For single-user installation
+    . ~/.nix-profile/etc/profile.d/nix.sh
+
+    # For multi-user installation
+    . /etc/profile.d/nix.sh
+    ```
+
+3. **Verify Installation**
+    3. **Check if nix is installed**
+        ```bash
+        nix --version
+        ```
+
+    4. **Configure Nix**
+        ```bash
+        # For global configuration
+        sudo mkdir -p /etc/nix
+        sudo echo "experimental-features = nix-command flakes" > /etc/nix/nix.conf
+        sudo echo "allow-import-from-derivation = true" >> /etc/nix/nix.conf
+        sudo echo "substituters = https://cache.nixos.org https://cache.garnix.io" >> /etc/nix/nix.conf
+        sudo echo "trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" >> /etc/nix/nix.conf
+
+        # For local configuration (per-user)
+        mkdir -p ~/.config/nix
+        echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
+        echo "allow-import-from-derivation = true" >> ~/.config/nix/nix.conf
+        echo "substituters = https://cache.nixos.org https://cache.garnix.io" >> ~/.config/nix/nix.conf
+        echo "trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" >> ~/.config/nix/nix.conf
+
+        # Set correct permissions if needed
+        sudo chown -R $USER:$USER /nix
+        ```
+
+    *Note: You may need to restart your shell for changes to take effect. The `allow-import-from-derivation` setting enables importing from derivations during evaluation.*

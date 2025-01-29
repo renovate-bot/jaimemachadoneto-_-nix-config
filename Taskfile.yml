@@ -1,0 +1,80 @@
+version: '3'
+
+vars:
+  WORKSPACE_PATH:
+    sh: "if [ -n \"$WSL_DISTRO_NAME\" ]; then wslpath -aw .; else pwd; fi"
+
+tasks:
+  default:
+    desc: Show available commands
+    cmds:
+      - task --list
+
+  io:
+    desc: Print nix flake inputs and outputs
+    cmds:
+      - nix flake metadata
+      - nix flake show
+
+  update:
+    desc: Update nix flake
+    cmds:
+      - nix flake update
+
+  lint:
+    desc: Lint nix files
+    cmds:
+      - nix fmt
+
+  check:
+    desc: Check nix flake
+    cmds:
+      - nix flake check
+
+  dev:
+    desc: Manually enter dev shell
+    cmds:
+      - nix develop
+
+  build:
+    desc: Build nix flake
+    deps: [lint, check]
+    cmds:
+      - nix build
+
+  clean:
+    desc: Remove build output link
+    cmds:
+      - rm -f ./result
+
+  run:
+    desc: Run nix flake to setup environment
+    deps: [lint, check]
+    cmds:
+      - nix run
+
+  test::docker-build:
+    desc: Build the CI Docker image
+    cmds:
+      - DOCKER_BUILDKIT=1 docker build -t nix-ci -f test/Dockerfile .
+    platforms: [linux]
+
+  test::docker-test:
+    desc: Run CI tests in Docker
+    cmds:
+      - |
+        docker run --rm \
+          -v "$(pwd):/workspace:Z" \
+          -v "${HOME}/.gitconfig:/home/nixuser/.gitconfig:ro" \
+          -v /nix:/nix \
+          -v /nix/var/nix/profiles/default:/nix/var/nix/profiles/default \
+          -e NIX_PROFILES="/nix/var/nix/profiles/default" \
+          --user "$(id -u):$(id -g)" \
+          --privileged \
+          nix-ci
+    platforms: [linux]
+
+  test::docker-ci:
+    desc: Build and test in one command
+    deps: [test::docker-build, test::docker-test]
+    platforms: [linux]
