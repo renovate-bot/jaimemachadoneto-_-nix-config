@@ -1,5 +1,7 @@
 name: CodeQL
-
+permissions:
+  contents: read
+  pull-requests: write
 on:
   schedule:
     - cron: 0 0 * * 0 # Weekly scan
@@ -15,8 +17,6 @@ jobs:
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
-        with:
-          languages: python
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
