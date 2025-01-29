@@ -41,5 +41,8 @@
     "files.insertFinalNewline": true,
     "files.exclude": {
         "**/result": true
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "trunk.io"
     }
 }
