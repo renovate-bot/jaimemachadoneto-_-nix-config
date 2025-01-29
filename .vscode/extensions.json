@@ -2,5 +2,7 @@
     "recommendations": [
         "jnoortheen.nix-ide",
         "mkhl.direnv",
+        "bbenoist.nix",
+        "b4dm4n.nixpkgs-fmt",
     ]
 }
