@@ -1,0 +1,41 @@
+{
+    "nixEnvSelector.nixFile": "${workspaceFolder}/shell.nix",
+    "nix.enableLanguageServer": true,
+    "nix.serverPath": "nixd",
+    "files.trimFinalNewlines": true,
+    "nix.serverSettings": {
+        "formatting": {
+            "command": [
+                "nixpkgs-fmt"
+            ]
+        },
+        "options": {
+            // By default, this entriy will be read from `import <nixpkgs> { }`.
+            // You can write arbitary Nix expressions here, to produce valid "options" declaration result.
+            // Tip: for flake-based configuration, utilize `builtins.getFlake`
+            "nixos": {
+                "expr": "(builtins.getFlake \"${workspaceFolder}/flake.nix\").nixosConfigurations.<name>.options"
+            },
+            "home-manager": {
+                "expr": "(builtins.getFlake \"${workspaceFolder}/flake.nix\").homeConfigurations.<name>.options"
+            },
+            // Tip: use ${workspaceFolder} variable to define path
+            "nix-darwin": {
+                "expr": "(builtins.getFlake \"${workspaceFolder}/flake.nix\").darwinConfigurations.<name>.options"
+            }
+        }
+    },
+    "runItOn": {
+        "commands": [
+            {
+                "match": "flake\\.nix",
+                "isShellCommand": false,
+                "cmd": "nixEnvSelector.hitEnv"
+            }
+        ]
+    },
+    "files.insertFinalNewline": true,
+    "files.exclude": {
+        "**/result": true
+    }
+}
