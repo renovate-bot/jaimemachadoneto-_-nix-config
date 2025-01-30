@@ -12,8 +12,8 @@
     # For macOS's default shell.
     zsh = {
       enable = true;
-      autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
+      # autosuggestion.enable = true;
+      # syntaxHighlighting.enable = true;
       envExtra = ''
         # Custom zshrc goes here
       '';
