@@ -17,10 +17,14 @@
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.inputs.flake-parts.follows = "flake-parts";
+
+    # Devshell
+    git-hooks.url = "github:cachix/git-hooks.nix";
+    git-hooks.flake = false;
   };
 
   # Wired using https://nixos-unified.org/autowiring.html
-   outputs = inputs@{ self, ... }:
+  outputs = inputs@{ self, ... }:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
       imports = (with builtins;
