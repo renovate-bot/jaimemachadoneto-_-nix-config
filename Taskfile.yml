@@ -1,8 +1,8 @@
-version: '3'
+version: "3"
 
 vars:
   WORKSPACE_PATH:
-    sh: "if [ -n \"$WSL_DISTRO_NAME\" ]; then wslpath -aw .; else pwd; fi"
+    sh: 'if [ -n "$WSL_DISTRO_NAME" ]; then wslpath -aw .; else pwd; fi'
 
 tasks:
   default:
@@ -78,3 +78,12 @@ tasks:
     desc: Build and test in one command
     deps: [test::docker-build, test::docker-test]
     platforms: [linux]
+
+  test::docker-build-image-runner:
+    desc: Builds
+    cmds:
+      - docker build -t nix-dev --build-arg HOSTNAME=$(hostname) --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) --build-arg USERNAME=runner -f test/Dockerfile .
+
+  test::docker-build-image-attach-runner:
+    cmds:
+      - docker run -it --hostname $(hostname) -v "$(pwd)":/home/runner/nix-config nix-dev
