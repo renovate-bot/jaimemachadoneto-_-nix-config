@@ -98,4 +98,6 @@ chown --recursive "$USERNAME" /nix
 # Set hostname
 echo "$HOSTNAME" > /etc/hostname
 
+sudo dpkg-reconfigure locales
+
 echo "Environment setup complete for $USERNAME"
