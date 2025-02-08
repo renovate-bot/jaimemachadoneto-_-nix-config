@@ -12,6 +12,8 @@
         go-task
         nixd
         nix-output-monitor
+        nixpkgs-fmt
+        trunk-io
       ];
     };
     pre-commit.settings = {

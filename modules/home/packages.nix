@@ -16,6 +16,7 @@
     nil # Nix language server
     nix-info
     nixpkgs-fmt
+    gcc
 
 
     # On ubuntu, we need this less for `man home-configuration.nix`'s pager to
