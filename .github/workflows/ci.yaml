@@ -22,15 +22,15 @@ jobs:
     # Map Nix system names to GitHub runners
     runs-on: ${{
       matrix.system == 'aarch64-darwin' && 'macos-14' ||
-      matrix.system == 'x86_64-darwin' && 'macos-latest' ||
-      matrix.system == 'x86_64-linux' && 'ubuntu-latest' }}
+      matrix.system == 'x86_64-linux' && 'ubuntu-latest' ||
+      matrix.system == 'aarch64-linux' && 'ubuntu-latest'}}
     timeout-minutes: 60 # Prevent infinite runs
 
     strategy:
       matrix:
         system:
           - aarch64-darwin
-          - x86_64-darwin
+          - aarch64-linux
           - x86_64-linux
       fail-fast: false
 
