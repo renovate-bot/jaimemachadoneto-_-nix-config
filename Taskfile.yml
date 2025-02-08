@@ -53,6 +53,11 @@ tasks:
     cmds:
       - nix run
 
+  activate:home:
+    desc: Activates nix home-configuration
+    cmds:
+      - nix run .#activate $USER@
+
   test::docker-build:
     desc: Build the CI Docker image
     cmds:
