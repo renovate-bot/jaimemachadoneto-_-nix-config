@@ -8,6 +8,16 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
+# Install required packages
+apt-get update 
+apt-get install -y \
+    curl \
+    xz-utils \
+    sudo \
+    git \
+    vim \
+    systemd
+
 # Check if running in WSL2
 if grep -qi microsoft /proc/version; then
     echo "WSL2 detected, checking systemd configuration..."
@@ -39,24 +49,20 @@ USER_ID=$(id -u "$USERNAME")
 GROUP_ID=$(id -g "$USERNAME")
 HOSTNAME=$(hostname)
 
-# Install required packages
-apt-get update 
-apt-get install -y \
-    curl \
-    xz-utils \
-    sudo \
-    git \
-    vim \
-    systemd
 
 # Ensure systemd is running
-if ! systemctl status systemd > /dev/null 2>&1; then
-    echo "Starting systemd..."
+if [[ "$(systemctl is-system-running 2>/dev/null)" != "running" ]]; then
+    echo "Systemd is not running. Attempting to start..."
     systemctl start systemd || {
         echo "Failed to start systemd"
+        echo "Sugestion: Restart your WSL2 instance"
+        echo "Executing 'wsl --shutdown' in PowerShell"
         exit 1
     }
+else
+    echo "Systemd is already running."
 fi
+
 
 # Setup user if needed
 if getent group "$GROUP_ID" > /dev/null 2>&1; then
