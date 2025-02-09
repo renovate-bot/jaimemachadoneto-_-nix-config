@@ -104,7 +104,6 @@ in
     zoxide.enable = true;
     fzf.enable = true;
     jq.enable = true;
-    btop.enable = true;
     # Tmate terminal sharing.
     tmate = {
       enable = true;
