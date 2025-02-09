@@ -25,7 +25,26 @@ in
     # difftastic.enable = true;
     enable = true;
     userName = "Jaime Machado"; #flake.config.me.fullname;
-    userEmail = "jaime.machado.@Gamil.com"; #flake.config.me.email;
+    userEmail = "jaime.machado@gmail.com"; #flake.config.me.email;
+
+    delta = {
+      enable = true;
+      options = {
+        decorations = {
+          # commit-decoration-style = "bold yellow box ul";
+          # file-decoration-style = "none";
+          # file-style = "bold yellow ul";
+          theme = "Dracula";
+          line-numbers = true;
+          side-by-side = true;
+          line-numbers-left-format = "";
+          line-numbers-right-format = "│ ";
+        };
+        features = "decorations";
+        whitespace-error-style = "22 reverse";
+
+      };
+    };
     aliases = {
       co = "checkout";
       ci = "commit";
@@ -40,6 +59,11 @@ in
       graph = "log --decorate --oneline --graph";
       pushall = "!git remote | xargs -L1 git push --all";
       add-nowhitespace = "!git diff -U0 -w --no-color | git apply --cached --ignore-whitespace --unidiff-zero -";
+      lgb = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches";
+      lg1 = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all";
+      lg2 = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all";
+      lg = "!\"git lg1\"";
+      dt = "\"!f() { vim -p $(git diff --name-only) +\"tabdo Gdiff $@\" +tabfirst; }; f\"";
     };
     iniContent = {
       # Branch with most recent change comes first
