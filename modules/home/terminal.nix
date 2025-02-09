@@ -5,6 +5,9 @@ let
   inherit (flake) inputs;
 in
 {
+  imports = [
+    inputs.nix-index-database.hmModules.nix-index
+  ];
   home.packages = with pkgs; [
     # Unixy tools
     fd # Better find
@@ -86,6 +89,11 @@ in
   };
 
   programs = {
+    nix-index = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+    nix-index-database.comma.enable = true;
     # lsd = {
     #   enable = true;
     #   enableAliases = true;
