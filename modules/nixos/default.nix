@@ -10,8 +10,6 @@ in
     {
       # users.users.${config.me.username}.isNormalUser = true;
       # home-manager.users.${config.me.username} = { };
-      users.users.jaime.isNormalUser = true;
-      home-manager.users.jaime = { };
 
       home-manager.sharedModules = [
         self.homeModules.default
