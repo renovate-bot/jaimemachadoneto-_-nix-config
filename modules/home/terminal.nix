@@ -39,6 +39,7 @@ in
     less
 
     #My Packages
+    copy-md-as-html
     binocular-cli
     myfindin
 
