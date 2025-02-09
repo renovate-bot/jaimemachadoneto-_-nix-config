@@ -9,13 +9,11 @@ in
 {
   imports = [
     {
-      # For home-manager to work.
-      users.users.${flake.config.me.username} = {
-        # home = "/Users/${flake.config.me.username}";
-        home = "/Users/jaime";
-      };
+      # # For home-manager to work.
+      # users.users.${flake.config.me.username} = {
+      #   home = "/Users/${flake.config.me.username}";
+      # };
       # home-manager.users.${config.me.username} = { };
-      home-manager.users.jaime = { };
       home-manager.sharedModules = [
         self.homeModules.default
         # self.homeModules.darwin-only
