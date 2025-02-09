@@ -18,7 +18,7 @@ in
       home-manager.users.jaime = { };
       home-manager.sharedModules = [
         self.homeModules.default
-        self.homeModules.darwin-only
+        # self.homeModules.darwin-only
       ];
     }
     self.nixosModules.common
