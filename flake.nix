@@ -21,6 +21,7 @@
     nixos-vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     # Devshell
+    omnix.url = "github:juspay/omnix";
     git-hooks.url = "github:cachix/git-hooks.nix";
     git-hooks.flake = false;
   };
