@@ -1,21 +1,21 @@
-name: Add new issues to GitHub Project
+name: Add Issues to GitHub Project
+
 on:
   issues:
     types: [opened]
 
 jobs:
-  add_issue_to_project:
+  add_to_project:
     runs-on: ubuntu-latest
+    
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Add issue to project
         run: |
-          gh api graphql -F projectId='2' -F contentId='${{ github.event.issue.node_id }}' -f query='
-          mutation($projectId: ID!, $contentId: ID!) {
-            addProjectV2ItemById(input: {projectId: $projectId, contentId: $contentId}) {
-              item {
-                id
-              }
-            }
-          }'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.MY_PAT }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          -d '{"project_id": "2", "content_id": "${{ github.event.issue.node_id }}"}' \
+          https://api.github.com/graphql
