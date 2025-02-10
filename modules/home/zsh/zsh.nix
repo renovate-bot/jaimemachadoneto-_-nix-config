@@ -135,6 +135,22 @@
           rm ~/.netrc
       }
 
+      traverse-upwards() {
+        local dir=$(
+          [ $# = 1 ] && [ -d "$1" ] && cd "$1"
+          while true; do
+            find "$PWD" -mindepth 1 -maxdepth 1 -type d -not -iwholename '*.git*'
+            echo "$PWD"
+            [ $PWD = / ] && break
+            cd ..
+          done | fzf --tiebreak=end --height 50% --reverse --preview 'tree -C {} | head -200'
+        ) && cd "$dir"
+      }
+
+      find-directory() {
+        find . -type d -not -iwholename '*.git*' | fzf --tiebreak=end --height 50% --reverse --preview 'tree -C {} | head -200'
+
+      }
 
       1pass_signin() {
           eval $(op signin)
