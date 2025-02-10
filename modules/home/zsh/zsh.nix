@@ -95,9 +95,6 @@
       unset pw
       }
 
-      bindkey '^[[H' beginning-of-line
-      bindkey '^[[F' end-of-line
-
       batf() {
           tail --retry -f "$1"| bat --paging=never -l log;
       }
@@ -161,6 +158,11 @@
       zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
       zstyle ':completion:*' menu select=0 search
 
+      _myfindin() {
+        BUFFER="myfindin $(pwd)"
+        zle accept-line
+      }
+      zle -N _myfindin
 
       zstyle ':completion:*' list-colors "$\{(s.:.)LS_COLORS}"
 
@@ -181,6 +183,8 @@
       bindkey  "^[[3~"  delete-char
       bindkey  "^[[H"   beginning-of-line
       bindkey  "^[[F"   end-of-line
+      bindkey  "^F"     _myfindin
+
       export TERM=xterm-256color
       export COLORTERM="truecolor"
     '';
