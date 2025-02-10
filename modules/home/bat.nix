@@ -20,4 +20,7 @@
     };
 
   };
+  home.shellAliases = {
+    "c" = "bat --theme=\"Dracula\" --style='full,-grid' --paging=never";
+  };
 }

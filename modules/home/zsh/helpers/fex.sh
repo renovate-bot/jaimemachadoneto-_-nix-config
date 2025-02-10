@@ -1,3 +1,4 @@
+#!/bin/env bash
 # fuzzy explorer
 # extending Phantas0's work (https://thevaluable.dev/practical-guide-fzf-example/)
 function fex() {
