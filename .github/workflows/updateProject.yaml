@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Add issue to project
         run: |
-          gh api graphql -F projectId='PVT_kwHO12345' -F contentId='${{ github.event.issue.node_id }}' -f query='
+          gh api graphql -F projectId='2' -F contentId='${{ github.event.issue.node_id }}' -f query='
           mutation($projectId: ID!, $contentId: ID!) {
             addProjectV2ItemById(input: {projectId: $projectId, contentId: $contentId}) {
               item {
