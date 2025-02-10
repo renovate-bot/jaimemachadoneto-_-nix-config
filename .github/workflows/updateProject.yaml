@@ -4,7 +4,7 @@ on:
   issues:
     types: [opened]
 env:
-  GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_API_TOKEN: ${{ secrets.MY_PAT }}
 
 jobs:
   add_to_project:
