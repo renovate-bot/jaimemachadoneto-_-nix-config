@@ -1,8 +1,11 @@
 name: update-flake-lock
+permissions:
+  contents: write
+  pull-requests: write
 on:
   workflow_dispatch: # allows manual triggering
   schedule:
-    - cron: '0 0 * * 0' # runs weekly on Sunday at 00:00
+    - cron: 0 0 * * 0 # runs weekly on Sunday at 00:00
 
 jobs:
   example-lock:
@@ -15,6 +18,6 @@ jobs:
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@main
         with:
-          pr-title: "Update flake.lock"
+          pr-title: Update flake.lock
           pr-labels: |
             automated

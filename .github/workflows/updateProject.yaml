@@ -1,5 +1,9 @@
 name: Add Issues to Project
 
+permissions:
+  contents: read
+  issues: write
+
 on:
   issues:
     types: [opened]
@@ -10,7 +14,7 @@ jobs:
   add_to_project:
     runs-on: ubuntu-latest
     steps:
-    - name: Assign new issues to the project
-      uses: tcassou/project-bot@2.0.0
-      with:
-        project_url: 'https://github.com/orgs/jaimemachadoneto/projects/2'
+      - name: Assign new issues to the project
+        uses: tcassou/project-bot@2.0.0
+        with:
+          project_url: https://github.com/orgs/jaimemachadoneto/projects/2
