@@ -5,7 +5,7 @@ let
     # Upstream has broken mac package
     # pkgs.gitAndTools.gitFull.override { svnSupport = false; }
     #else
-    pkgs.gitAndTools.git;
+    pkgs.gitAndTools.gitFull;
 
   # git commit --amend, but for older commits
   git-fixup = pkgs.writeShellScriptBin "git-fixup" ''
@@ -26,7 +26,8 @@ in
     enable = true;
     userName = "Jaime Machado"; #flake.config.me.fullname;
     userEmail = "jaime.machado@gmail.com"; #flake.config.me.email;
-    diff-so-fancy.enable = false;
+    lfs.enable = true;
+
     delta = {
       #TODO: Take a look to toggle side-by-side: https://dandavison.github.io/delta/tips-and-tricks/toggling-delta-features.html
       enable = true;
@@ -36,8 +37,10 @@ in
           # file-decoration-style = "none";
           # file-style = "bold yellow ul";
           theme = "Dracula";
-          # line-numbers = true;
-          # side-by-side = true;
+          line-numbers = true;
+          side-by-side = true;
+          hyperlinks = true;
+          commit-decoration = true;
           # line-numbers-left-format = "";
           # line-numbers-right-format = "│ ";
         };
@@ -49,6 +52,7 @@ in
 
       };
     };
+
     aliases = {
       co = "checkout";
       ci = "commit";
@@ -76,8 +80,20 @@ in
       # https://git-scm.com/book/en/v2/Git-Tools-Rerere
       rerere.enabled = true;
     };
-    ignores = [ "*~" "*.swp" ".direnv" "result" ];
-    lfs.enable = true;
+    ignores = [
+      "*~"
+      "*.swp"
+      ".csvignore"
+      # nix
+      "*.drv"
+      "result"
+      # python
+      "*.py?"
+      "__pycache__/"
+      ".venv/"
+      # direnv
+      ".direnv"
+    ];
     extraConfig = {
       init.defaultBranch = "main"; # Undo breakage due to https://srid.ca/luxury-belief
       core.editor = "nvim";
