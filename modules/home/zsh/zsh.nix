@@ -14,6 +14,7 @@
     syntaxHighlighting = {
       enable = true;
     };
+    autocd = true;
 
     autosuggestion = {
       enable = true;
@@ -25,11 +26,52 @@
       share = true;
     };
 
+
+    plugins =
+      [
+        {
+          name = "powerlevel10k-config";
+          src = ./p10k;
+          file = "p10k.zsh.theme";
+        }
+        {
+          name = "zsh-powerlevel10k";
+          src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/";
+          file = "powerlevel10k.zsh-theme";
+        }
+        {
+          name = "zsh-term-title";
+          src = "${pkgs.zsh-term-title}/share/zsh/zsh-term-title/";
+        }
+        {
+          name = "zhooks";
+          src = "${pkgs.zhooks}/share/zsh/zhooks";
+        }
+      ];
+    # The iso doesn't use our overlays, so don't add custom packagesa
+    #FIXME:move these to an optional custom plugins module and remove iso check
+    # ++ lib.optionals (config.hostSpec.hostName != "iso") [
+    #  [
+    #   {
+    #     name = "zsh-term-title";
+    #     src = "${pkgs.zsh-term-title}/share/zsh/zsh-term-title/";
+    #   }
+    #   {
+    #     name = "cd-gitroot";
+    #     src = "${pkgs.cd-gitroot}/share/zsh/cd-gitroot";
+    #   }
+    #   {
+    #     name = "zhooks";
+    #     src = "${pkgs.zhooks}/share/zsh/zhooks";
+    #   }
+    # ];
+
     shellAliases =
       config.home.shellAliases // {
         # Our shell aliases are pretty simple
         "sd" = "cd ./\$(find-directory)";
         "sdu" = "traverse-upwards";
+        "ccat" = "bat --style='changes,header' --paging=never";
       };
 
 
