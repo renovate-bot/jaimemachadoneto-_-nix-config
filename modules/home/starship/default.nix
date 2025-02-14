@@ -3,7 +3,7 @@
 , ...
 }: {
   programs.starship = {
-    enable = true;
+    enable = false;
     settings =
       let
         hostInfo = "$username$hostname($shlvl)($cmd_duration)";

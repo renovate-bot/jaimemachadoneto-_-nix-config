@@ -78,7 +78,7 @@ in
     # avoid using nano, in favor of vim
     "sudo" = "sudo -E";
     "ls" = "eza --icons=always --long --git";
-    "cd" = "z";
+    "l" = "ls -la";
     "mytail" = "tail --retry -f";
     "myfzf" = "fzf --multi --bind shift-up:preview-page-up,shift-down:preview-page-down --preview='bat --decorations=always --color=always --theme=\"Dracula\" {}' --preview-window right:50%";
     "fvim" = "vim \`fzf --multi --bind shift-up:preview-page-up,shift-down:preview-page-down --preview='bat --decorations=always --color=always --theme=\"Dracula\" {}' --preview-window right:50%\`";
@@ -101,10 +101,18 @@ in
     # };
     bat.enable = true;
     autojump.enable = false;
-    zoxide.enable = true;
     fzf.enable = true;
     jq.enable = true;
     # Tmate terminal sharing.
+
+    zoxide = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      options = [
+        "--cmd cd" # replace cd with z and zi (via cdi)
+      ];
+    };
     tmate = {
       enable = true;
       #host = ""; #In case you wish to use a server other than tmate.io

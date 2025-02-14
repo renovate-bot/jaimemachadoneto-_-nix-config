@@ -52,11 +52,19 @@
     ];
 
     extraConfig = ''
-      setw -g automatic-rename off
+      set -g automatic-rename 1
       # Automatically set window title
-      set-window-option -g automatic-rename off
-      set-option -g set-titles off
-      set -g set-titles-string "#I:#W"
+      set -g automatic-rename-format " #I:#{=30:pane_title}#F "
+      set -g status-right " %H:%M %d-%b-%y"
+      # Reset title formats
+      set -g set-titles on
+      set -g set-titles-string "#h:#S:#{pane_title} #{session_alerts}"
+
+      # set -g set-titles-string "#T"
+
+      # set-window-option -g automatic-rename off
+      # set-option -g set-titles off
+      # set -g set-titles-string "#I:#W"
 
       # Split panes
       bind | split-window -h -c "#{pane_current_path}"
@@ -73,9 +81,6 @@
       set -ag terminal-overrides ",*:Tc"
       set -as terminal-features ",*:RGB"
 
-      # Reset title formats
-      set -g set-titles on
-      set -g set-titles-string "#T"
 
       # Other settings
       setw -g automatic-rename off

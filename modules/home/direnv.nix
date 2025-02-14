@@ -12,5 +12,7 @@
     config.global = {
       hide_env_diff = true;
     };
+    enableBashIntegration = true;
+    enableZshIntegration = true;
   };
 }
