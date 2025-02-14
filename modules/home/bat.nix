@@ -6,7 +6,12 @@
       style = "full,-grid";
     };
 
-    extraPackages = with pkgs.bat-extras; [ batdiff batman batgrep batwatch ];
+    extraPackages = with pkgs.bat-extras; [
+      batgrep # search through and highlight files using ripgrep
+      batdiff # Diff a file against the current git index, or display the diff between to files
+      batman # read manpages using bat as the formatter
+      batwatch # Watch a file and run bat whenever it changes
+    ];
     themes = {
       dracula = {
         src = pkgs.fetchFromGitHub {
@@ -22,5 +27,14 @@
   };
   home.shellAliases = {
     "c" = "bat --theme=\"Dracula\" --style='full,-grid' --paging=never";
+  };
+  # Avoid [bat error]: The binary caches for the user-customized syntaxes and themes in
+  # '/home/<user>/.cache/bat' are not compatible with this version of bat (0.25.0).
+  home.activation.batCacheRebuild = {
+    after = [ "linkGeneration" ];
+    before = [ ];
+    data = ''
+      ${pkgs.bat}/bin/bat cache --build
+    '';
   };
 }
