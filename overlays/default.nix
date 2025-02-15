@@ -12,4 +12,5 @@ self: super: {
   omnix = inputs.omnix.packages.${self.system}.default;
   zsh-term-title = self.callPackage "${packages}/zsh-term-title" { };
   zhooks = self.callPackage "${packages}/zhooks" { };
+  fex = self.callPackage "${packages}/fex" { };
 }
