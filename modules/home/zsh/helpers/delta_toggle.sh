@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 # List of toggleable features
 TOGGLEABLE=("line-numbers" "side-by-side")
@@ -35,7 +35,7 @@ toggle_feature() {
     read -ra feature_list <<< "${features:1}"
 
     # Toggle the feature
-    if [[ " ${feature_list[*]} " =~ " $feature " ]]; then
+    if [[ " ${feature_list[*]} " =~ \ $feature\  ]]; then
         # Remove feature
         feature_list=("${feature_list[@]/$feature}")
     else

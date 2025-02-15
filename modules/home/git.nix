@@ -13,13 +13,24 @@ let
     git commit --fixup "$@"
     GIT_SEQUENCE_EDITOR=true git rebase -i --autostash --autosquash $rev^
   '';
+  delta-toggle = pkgs.writeShellApplication {
+    name = "delta-toggle";
+    runtimeInputs = [ pkgs.delta ];
+    text = builtins.readFile ./zsh/helpers/delta_toggle.sh;
+  };
+
 in
 {
   home.packages = with pkgs; [
     git-filter-repo
     git-fixup
+    delta-toggle
   ];
 
+  home.shellAliases = {
+    toggle-delta-l = "export DELTA_FEATURES=\${delta-toggle l}";
+    toggle-delta-s = "export DELTA_FEATURES=\${delta-toggle s}";
+  };
   programs.git = {
     inherit package;
     # difftastic.enable = true;
@@ -37,8 +48,8 @@ in
           # file-decoration-style = "none";
           # file-style = "bold yellow ul";
           theme = "Dracula";
-          line-numbers = true;
-          side-by-side = true;
+          # line-numbers = true;
+          # side-by-side = true;
           hyperlinks = true;
           commit-decoration = true;
           # line-numbers-left-format = "";

@@ -34,6 +34,6 @@ function fex() {
     cd "$selection" || exit
   else
     # supports multiple selections
-    eval $EDITOR $(echo $selection |sed -e 's/\x00/ /g')
+    eval "$EDITOR \"$(echo $selection |sed -e 's/\x00/ /g')\""
   fi
 }

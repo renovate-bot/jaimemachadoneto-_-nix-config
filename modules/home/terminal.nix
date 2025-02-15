@@ -28,6 +28,7 @@ in
     gnumake
     tree
 
+
     # Nix dev
     cachix
     nix-info
@@ -42,7 +43,7 @@ in
     copy-md-as-html
     binocular-cli
     myfindin
-
+    fex
   ];
 
   fonts.fontconfig.enable = true;
