@@ -20,10 +20,27 @@
     nixos-vscode-server.flake = false;
     nixos-vscode-server.url = "github:nix-community/nixos-vscode-server";
 
+    # Secrets management. See ./docs/secretsmgmt.md
+    sops-nix = {
+      url = "github:mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+
     # Devshell
     omnix.url = "github:juspay/omnix";
     git-hooks.url = "github:cachix/git-hooks.nix";
     git-hooks.flake = false;
+
+    #
+    # ========= Personal Repositories =========
+    #
+    # Private secrets repo.  See ./docs/secretsmgmt.md
+    # Authenticate via ssh and use shallow clone
+    nix-secrets = {
+      url = "git+ssh://git@github.com:jaimemachado/nix-secrets.git?ref=main&shallow=1";
+      inputs = { };
+    };
   };
 
   # Wired using https://nixos-unified.org/autowiring.html
