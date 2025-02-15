@@ -1,8 +1,16 @@
 #!/bin/env bash
 # fuzzy explorer
 # extending Phantas0's work (https://thevaluable.dev/practical-guide-fzf-example/)
-function fex() {
-  local selection=$(find -type d | fzf --multi --print0 \
+function fexFunc() {
+  local selection editor
+
+  editor="${EDITOR:-nvim}"
+  # Determine which editor to use
+  if [[ $# -ne 0 ]]; then
+    editor="${VISUAL:-nvim}"  # Default to nano if EDITOR is not set
+  fi
+
+  selection=$(find . -type d | fzf --multi --print0 \
   --tmux right,65%\
   --preview='tree -C {}' \
   --prompt='Dirs > ' \
@@ -30,10 +38,14 @@ function fex() {
   fi
 
   # if selection is a folder (with multiples go to the first)
-  if [ -d "$(echo $selection | sed 's/\x0.*$//')" ]; then
+  # shellcheck disable=SC2001
+  if [ -d "$(echo "$selection" | sed 's/\x0.*$//')" ]; then
     cd "$selection" || exit
   else
     # supports multiple selections
-    eval "$EDITOR \"$(echo $selection |sed -e 's/\x00/ /g')\""
+    # shellcheck disable=SC2001
+    eval "$editor $(echo "$selection" |sed -e 's/\x00/ /g')"
   fi
 }
+# Call the function with arguments passed to the script
+fexFunc "$@"

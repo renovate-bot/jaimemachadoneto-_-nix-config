@@ -48,6 +48,11 @@ in
 
   fonts.fontconfig.enable = true;
 
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "code";
+  };
+
   home.shellAliases = {
     e = "nvim";
     g = "git";
@@ -88,6 +93,8 @@ in
     "ffio" = "myfindin";
     "upgradeflakes" = "nix-channel --update && nix flake update && nix-env -u";
     "nixclean" = "nix-collect-garbage -d";
+
+    "fev" = "fex a";
   };
 
   programs = {
