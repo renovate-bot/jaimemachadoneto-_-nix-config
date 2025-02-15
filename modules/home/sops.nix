@@ -21,7 +21,8 @@ in
     #age.sshKeyPaths = [ "/home/user/path-to-ssh-key" ];
     # FIXME(starter-repo):
     #defaultSopsFile = "${secretsFilePath}";
-    defaultSopsFile = "${sopsFolder}/${config.hostSpec.hostName}.yaml";
+    # defaultSopsFile = "${sopsFolder}/${config.hostSpec.hostName}.yaml";
+    defaultSopsFile = "${sopsFolder}/secrets.yaml";
     validateSopsFiles = false;
 
     defaultSopsFormat = "yaml";

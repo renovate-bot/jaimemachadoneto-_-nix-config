@@ -5,7 +5,9 @@ let
 in
 {
   imports = [
+    # ../../../modules/common/config.nix
     self.homeModules.default
+
   ];
 
   # To use the `nix` from `inputs.nixpkgs` on templates using the standalone `home-manager` template
@@ -18,6 +20,7 @@ in
   ];
 
   home.username = "jaime";
+  # home.username = flake.config.hostSpec.username;
   home.homeDirectory = lib.mkDefault "/${if pkgs.stdenv.isDarwin then "Users" else "home"}/jaime";
   home.stateVersion = "24.11";
 }

@@ -94,7 +94,13 @@ in
   #hyprland border override example
   #  wayland.windowManager.hyprland.settings.general."col.active_border" = lib.mkForce "rgb(${config.stylix.base16Scheme.base0E});
 
+  # Enable home-manager for "runner" user
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
+  # Enable home-manager for "runner" user
+  home-manager.users.jaime = {
+    imports = [ (self + /configurations/home/jaime/default.nix) ];
+  };
+
   system.stateVersion = "24.11";
 }
 

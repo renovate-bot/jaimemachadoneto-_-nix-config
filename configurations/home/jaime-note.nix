@@ -1,23 +1,15 @@
-{ flake, pkgs, lib, config, ... }:
+{ flake, hostSpec, ... }:
 let
   inherit (flake) inputs;
   inherit (inputs) self;
 in
 {
+  # inherit hostSpec;
   imports = [
-    self.homeModules.default
+    ./jaime
+
   ];
+  #  flake.config.hostSpec.hostName = "jaime-note";
+  # home.username = flake.config.hostSpec.username;
 
-  # To use the `nix` from `inputs.nixpkgs` on templates using the standalone `home-manager` template
-
-  # `nix.package` is already set if on `NixOS` or `nix-darwin`.
-  # TODO: Avoid setting `nix.package` in two places. Does https://github.com/juspay/nixos-unified-template/issues/93 help here?
-  nix.package = lib.mkDefault pkgs.nix;
-  home.packages = [
-    config.nix.package
-  ];
-
-  home.username = "jaime";
-  home.homeDirectory = lib.mkDefault "/${if pkgs.stdenv.isDarwin then "Users" else "home"}/jaime";
-  home.stateVersion = "24.11";
 }
