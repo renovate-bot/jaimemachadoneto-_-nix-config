@@ -364,6 +364,24 @@
         "type": "github"
       }
     },
+    "nix-secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1739645699,
+        "narHash": "sha256-PEkp5t9Rpa5BZVDlSf37BBw2s3QUh7FQrmgme3+fmls=",
+        "ref": "main",
+        "rev": "d6d6950d634c1d5b1a96ed40311b36080300efac",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/jaimemachado/nix-secrets"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/jaimemachado/nix-secrets"
+      }
+    },
     "nix-systems-aarch64-darwin": {
       "locked": {
         "lastModified": 1680978170,
@@ -590,6 +608,7 @@
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nix-index-database": "nix-index-database",
+        "nix-secrets": "nix-secrets",
         "nixos-unified": "nixos-unified",
         "nixos-vscode-server": "nixos-vscode-server",
         "nixpkgs": "nixpkgs",

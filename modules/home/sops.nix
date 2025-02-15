@@ -2,7 +2,7 @@
 
 let
   inherit (flake) inputs;
-  sopsFolder = (builtins.toString inputs.nix-secrets) + "/sops";
+  sopsFolder = (builtins.toString inputs.nix-secrets) + "/secrets";
   homeDirectory = config.home.homeDirectory;
 in
 {
@@ -12,6 +12,7 @@ in
 
   home.packages = with pkgs; [
     sops
+    age
   ];
 
   sops = {
