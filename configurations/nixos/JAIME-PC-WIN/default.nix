@@ -15,6 +15,6 @@ in
 
   # Enable home-manager for "runner" user
   home-manager.users."jaime" = {
-    imports = [ (self + /configurations/home/jaime.nix) ];
+    imports = [ (self + /configurations/home/jaime) ];
   };
 }
