@@ -1,9 +1,10 @@
-{ flake, pkgs, lib, config, ... }:
+{ flake, pkgs, lib, config, hostSpec, ... }:
 let
   inherit (flake) inputs;
   inherit (inputs) self;
 in
 {
+  inherit hostSpec;
   imports = [
     # ../../../modules/common/config.nix
     self.homeModules.default
