@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup SSH
-        uses: MrSquaare/ssh-setup-action@v3
+        uses: MrSquaare/ssh-setup-action@3c90616f6a336746c4d0950d1e635b9a0ce1569c # v3
         with:
           host: github.com
           private-key: ${{ secrets.NIX_SECRETS_SSH }}
