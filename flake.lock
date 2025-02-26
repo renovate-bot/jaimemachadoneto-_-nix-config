@@ -364,6 +364,24 @@
         "type": "github"
       }
     },
+    "nix-secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1740592459,
+        "narHash": "sha256-O7p/JTE29NVD9jMO5Z/U3VrsK8Ly6Ftq7+Jbn9iCU8A=",
+        "ref": "main",
+        "rev": "ff69eb07f1bfe321e00b1bde73e25b9565fed8cc",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/jaimemachado/nix-secrets"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/jaimemachado/nix-secrets"
+      }
+    },
     "nix-systems-aarch64-darwin": {
       "locked": {
         "lastModified": 1680978170,
@@ -590,11 +608,13 @@
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nix-index-database": "nix-index-database",
+        "nix-secrets": "nix-secrets",
         "nixos-unified": "nixos-unified",
         "nixos-vscode-server": "nixos-vscode-server",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
-        "omnix": "omnix"
+        "omnix": "omnix",
+        "sops-nix": "sops-nix"
       }
     },
     "rust-flake": {
@@ -639,6 +659,26 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1739262228,
+        "narHash": "sha256-7JAGezJ0Dn5qIyA2+T4Dt/xQgAbhCglh6lzCekTVMeU=",
+        "owner": "mic92",
+        "repo": "sops-nix",
+        "rev": "07af005bb7d60c7f118d9d9f5530485da5d1e975",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mic92",
+        "repo": "sops-nix",
         "type": "github"
       }
     },
