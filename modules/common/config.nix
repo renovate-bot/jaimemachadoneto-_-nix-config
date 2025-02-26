@@ -4,8 +4,8 @@
 , lib
 , ...
 }:
-{
-  options.hostSpec = {
+let
+  subhostSpec = lib.types.submodule {
     username = lib.mkOption {
       type = lib.types.str;
       description = "The username of the host";
@@ -103,6 +103,19 @@
       type = lib.types.str;
       default = "1";
       description = "Used to indicate what scaling to use. Floating point number";
+    };
+  };
+in
+{
+  # imports = [
+  #   ../../config.nix
+  # ];
+  options = {
+    imports = [
+      ../../config.nix
+    ];
+    hostSpec = lib.mkOption {
+      type = subhostSpec;
     };
   };
 }
