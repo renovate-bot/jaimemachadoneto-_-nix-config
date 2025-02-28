@@ -8,6 +8,7 @@ in
     self.homeModules.default
   ];
 
+  nixpkgs.config = { allowBroken = true; allowUnfree = true; };
   # To use the `nix` from `inputs.nixpkgs` on templates using the standalone `home-manager` template
 
   # `nix.package` is already set if on `NixOS` or `nix-darwin`.
