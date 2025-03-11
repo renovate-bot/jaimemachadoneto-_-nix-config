@@ -40,10 +40,6 @@
           file = "powerlevel10k.zsh-theme";
         }
         {
-          name = "zsh-term-title";
-          src = "${pkgs.zsh-term-title}/share/zsh/zsh-term-title/";
-        }
-        {
           name = "zhooks";
           src = "${pkgs.zhooks}/share/zsh/zhooks";
         }
