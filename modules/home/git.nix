@@ -30,6 +30,7 @@ in
   home.shellAliases = {
     toggle-delta-l = "export DELTA_FEATURES=\${delta-toggle l}";
     toggle-delta-s = "export DELTA_FEATURES=\${delta-toggle s}";
+    gcl = "git clone --recurse-submodules";
   };
   programs.git = {
     inherit package;
