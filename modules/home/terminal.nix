@@ -51,6 +51,8 @@ in
     copy-md-as-html
     binocular-cli
     myfindin
+    jmntool
+
     fex
   ];
 

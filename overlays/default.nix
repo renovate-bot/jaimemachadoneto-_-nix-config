@@ -8,6 +8,7 @@ in
 self: super: {
   copy-md-as-html = self.callPackage "${packages}/copy-md-as-html.nix" { };
   myfindin = self.callPackage "${packages}/myfindin" { };
+  jmntool = self.callPackage "${packages}/jmntool" { };
   binocular-cli = self.callPackage "${packages}/binocular-cli" { };
   omnix = inputs.omnix.packages.${self.system}.default;
   zsh-term-title = self.callPackage "${packages}/zsh-term-title" { };
