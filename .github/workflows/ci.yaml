@@ -1,8 +1,6 @@
 name: Build
-
 permissions:
   contents: read
-
 on:
   workflow_dispatch:
   push:
@@ -57,5 +55,6 @@ jobs:
       - name: Run om ci
         run: |
           om ci \
+            --extra-access-tokens "github.com=${{ secrets.GITHUB_TOKEN }}" \
             run \
             --systems "${{ matrix.system }}"
