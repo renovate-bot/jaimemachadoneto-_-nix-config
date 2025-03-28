@@ -19,5 +19,10 @@
     };
   };
 
+  programs.openssh = {
+    enable = true;
+    forwardAgent = true;
+  };
+
   services.ssh-agent = lib.mkIf pkgs.stdenv.isLinux { enable = true; };
 }
