@@ -8,6 +8,11 @@ in
   imports = [
     inputs.nix-index-database.hmModules.nix-index
   ];
+
+
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
   home.packages = with pkgs; [
     # Unixy tools
     fd # Better find
@@ -35,6 +40,9 @@ in
     nixpkgs-fmt
     gcc
 
+    # DevPackages
+    binocular-cli
+
     # On ubuntu, we need this less for `man home-configuration.nix`'s pager to
     # work.
     less
@@ -43,6 +51,8 @@ in
     copy-md-as-html
     binocular-cli
     myfindin
+    jmntool
+
     fex
   ];
 

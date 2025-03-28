@@ -64,6 +64,11 @@ tasks:
       - DOCKER_BUILDKIT=1 docker build -t nix-ci -f test/Dockerfile .
     platforms: [linux]
 
+  secrets::update:
+    desc: Updates secrets dependency
+    cmds:
+      - nix flake update nix-secrets --timeout 5
+
   test::docker-test:
     desc: Run CI tests in Docker
     cmds:
