@@ -5,15 +5,15 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "jmntool";
-  version = "unstable-2025-03-20"; # Using date-based versioning for unstable builds
+  version = "unstable-2025-03-31"; # Using date-based versioning for unstable builds
 
   format = "pyproject"; # Specify that we're using pyproject.toml
 
   src = fetchFromGitHub {
     owner = "jaimemachadoneto";
     repo = "tools";
-    rev = "v0.0.2"; # Always fetch the latest code from main branch
-    sha256 = "sha256-VR8ovTl3+17f2Dj83EEnKTA2cTfBkvLU8dZFZqgtWwg="; # Will fail with the correct hash on first build
+    rev = "v0.0.3"; # Always fetch the latest code from main branch
+    sha256 = "sha256-DraBjeKemcNTOnSHJayYZtyeD8bIFp2c5984k6ylbS0"; # Will fail with the correct hash on first build
   };
 
   # Add flit_core as a build input for the build backend
