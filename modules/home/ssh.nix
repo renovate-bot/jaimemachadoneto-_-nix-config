@@ -19,5 +19,10 @@
     };
   };
 
+  home.packages = with pkgs; [ autossh ];
+  home.shellAliases = {
+    "openTunnel" = "autossh -M 0 -fN -R 8000:localhost:22 $USER@10.30.5.3";
+  };
+
   services.ssh-agent = lib.mkIf pkgs.stdenv.isLinux { enable = true; };
 }
