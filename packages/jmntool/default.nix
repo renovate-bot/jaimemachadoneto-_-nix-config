@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
     owner = "jaimemachadoneto";
     repo = "tools";
     rev = "v0.0.2"; # Always fetch the latest code from main branch
-    sha256 = "sha256-FPxN4ASrV8WFa6e/y0C/y5uA6vnIwj7WtJ2aiB62TWI="; # Will fail with the correct hash on first build
+    sha256 = "sha256-VR8ovTl3+17f2Dj83EEnKTA2cTfBkvLU8dZFZqgtWwg="; # Will fail with the correct hash on first build
   };
 
   # Add flit_core as a build input for the build backend
