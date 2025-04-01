@@ -116,6 +116,16 @@
       [[cable_channel]]
       name = "fish-history"
       source_command = "fish -c 'history'"
+
+      [[cable_channel]]
+      name = "task"
+      source_command = "task rc.defaultwidth:500 rc.defaultheight:1000"
+      preview_command = "task $(echo {} | awk '/([0-9])/{ print $1 }')"
+
+      [[cable_channel]]
+      name = "git-reflog"
+      source_command = 'git reflog'
+      preview_command = 'git show -p --stat --pretty=fuller --color=always {0}'
     '';
   };
 
@@ -318,8 +328,12 @@
       # docker-images channel
       "docker run" = "docker-images"
 
+      "git reflog" = "git-reflog"
+
       # gitrepos channel
       "nvim" = "git-repos"
+
+      "task" = "task"
 
       [shell_integration.keybindings]
       # controls which key binding should trigger tv
