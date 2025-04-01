@@ -32,7 +32,7 @@
         {
           name = "powerlevel10k-config";
           src = ./p10k;
-          file = "p10k.zsh.theme";
+          file = "p10k.zsh";
         }
         {
           name = "zsh-powerlevel10k";
