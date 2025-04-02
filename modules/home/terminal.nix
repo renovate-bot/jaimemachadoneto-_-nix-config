@@ -28,7 +28,6 @@ in
     sd # sed alternative
     curl # Download files
     xh # HTTPie alternative
-    television
     gnupg
     gnumake
     tree
