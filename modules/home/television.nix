@@ -52,7 +52,6 @@
           fi
       }
 
-
       zle -N tv-smart-autocomplete _tv_smart_autocomplete
       zle -N tv-shell-history _tv_shell_history
 
@@ -118,9 +117,10 @@
       source_command = "fish -c 'history'"
 
       [[cable_channel]]
-      name = "task"
-      source_command = "task rc.defaultwidth:500 rc.defaultheight:1000"
-      preview_command = "task $(echo {} | awk '/([0-9])/{ print $1 }')"
+      name = "go-task"
+      source_command = "tv_task_commands"
+      preview_command = "task --summary {0}"
+
 
       [[cable_channel]]
       name = "git-reflog"
@@ -190,7 +190,7 @@
       # A list of builtin themes can be found in the `themes` directory of the television
       # repository. You may also create your own theme by creating a new file in a `themes`
       # directory in your configuration directory (see the `config.toml` location above).
-      theme = "default"
+      theme = "dracula"
 
       # Previewers settings
       # ----------------------------------------------------------------------------
@@ -199,7 +199,7 @@
       # Bulitin syntax highlighting uses the same syntax highlighting engine as bat.
       # To get a list of your currently available themes, run `bat --list-themes`
       # Note that setting the BAT_THEME environment variable will override this setting.
-      theme = "TwoDark"
+      theme = "dracula"
 
       # Keybindings
       # ----------------------------------------------------------------------------
@@ -333,7 +333,7 @@
       # gitrepos channel
       "nvim" = "git-repos"
 
-      "task" = "task"
+      "task" = "go-task"
 
       [shell_integration.keybindings]
       # controls which key binding should trigger tv
@@ -345,5 +345,19 @@
     '';
   };
 
-  home.packages = with pkgs; [ television ];
+  home.packages = with pkgs; [
+    television
+    yq
+
+    (pkgs.writeShellApplication {
+      name = "tv_task_commands";
+      runtimeInputs = [ pkgs.go-task ];
+      text = ''
+        task | grep '^\* ' | awk -F ': *[^:]*$' '{print $1}' | sed 's/^\* //'
+      '';
+    })
+
+  ];
+
+
 }
