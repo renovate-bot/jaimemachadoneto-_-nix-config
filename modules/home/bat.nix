@@ -2,7 +2,7 @@
   programs.bat = {
     enable = true;
     config = {
-      theme = "dracula";
+      theme = "Dracula";
       style = "full,-grid";
     };
 
@@ -13,7 +13,7 @@
       batwatch # Watch a file and run bat whenever it changes
     ];
     themes = {
-      dracula = {
+      Dracula = {
         src = pkgs.fetchFromGitHub {
           owner = "dracula";
           repo = "sublime"; # Bat uses sublime syntax for its themes
