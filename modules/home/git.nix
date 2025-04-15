@@ -25,8 +25,9 @@ let
       pkgs.git.override { withLibsecret = true; }
     }/bin/git-credential-libsecret";
       wslHelper = "/mnt/c/Users/machajai/AppData/Local/GitHubDesktop/app-3.4.16/resources/app/git/mingw64/bin/git-credential-manager.exe";
+      isWSL = config.hostConfig.isWSL;
     in
-    if config.isWSL or false then wslHelper else linuxHelper;
+    if isWSL then wslHelper else linuxHelper;
 
 in
 {
