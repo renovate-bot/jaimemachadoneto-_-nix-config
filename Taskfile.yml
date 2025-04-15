@@ -53,10 +53,16 @@ tasks:
     cmds:
       - nix run
 
+  install::homemanager:
+    desc: Installs the home-manager package
+    cmds:
+      - nix-env -iA nixpkgs.home-manager
+
   activate:home:
     desc: Activates nix home-configuration
     cmds:
-      - nix run --show-trace .#activate $USER@
+      - export HOME=$(hostname)
+      - home-manager switch --flake .#$USER --impure
 
   test::docker-build:
     desc: Build the CI Docker image

@@ -19,18 +19,10 @@ let
     text = builtins.readFile ./zsh/helpers/delta_toggle.sh;
   };
 
-  getCredentialHelper =
-    let
-      linuxHelper = "${
-      pkgs.git.override { withLibsecret = true; }
-    }/bin/git-credential-libsecret";
-      wslHelper = "/mnt/c/Users/machajai/AppData/Local/GitHubDesktop/app-3.4.16/resources/app/git/mingw64/bin/git-credential-manager.exe";
-      isWSL = config.hostConfig.isWSL;
-    in
-    if isWSL then wslHelper else linuxHelper;
-
 in
 {
+
+
   home.packages = with pkgs; [
     git-filter-repo
     git-fixup
@@ -120,7 +112,15 @@ in
       init.defaultBranch = "main"; # Undo breakage due to https://srid.ca/luxury-belief
       core.editor = "nvim";
       #protocol.keybase.allow = "always";
-      credential.helper = getCredentialHelper;
+      credential.helper =
+        let
+          linuxHelper = "${
+          pkgs.git.override { withLibsecret = true; }
+        }/bin/git-credential-libsecret";
+          wslHelper = "${config.host.windowsGitPath}";
+        in
+        if config.host.isWSL then wslHelper else wslHelper;
+
       pull.rebase = "false";
       user.signing.key = "BDFCAAEA65BD25AD";
       commit.gpgSign = lib.mkDefault false;
