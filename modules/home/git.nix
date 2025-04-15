@@ -1,4 +1,4 @@
-{ pkgs, flake, lib, ... }:
+{ pkgs, flake, lib, config, ... }:
 let
   package =
     #if pkgs.stdenv.isDarwin then
@@ -18,6 +18,15 @@ let
     runtimeInputs = [ pkgs.delta ];
     text = builtins.readFile ./zsh/helpers/delta_toggle.sh;
   };
+
+  getCredentialHelper =
+    let
+      linuxHelper = "${
+      pkgs.git.override { withLibsecret = true; }
+    }/bin/git-credential-libsecret";
+      wslHelper = "/mnt/c/Users/machajai/AppData/Local/GitHubDesktop/app-3.4.16/resources/app/git/mingw64/bin/git-credential-manager.exe";
+    in
+    if config.isWSL or false then wslHelper else linuxHelper;
 
 in
 {
@@ -110,7 +119,7 @@ in
       init.defaultBranch = "main"; # Undo breakage due to https://srid.ca/luxury-belief
       core.editor = "nvim";
       #protocol.keybase.allow = "always";
-      credential.helper = "store --file ~/.git-credentials";
+      credential.helper = getCredentialHelper;
       pull.rebase = "false";
       user.signing.key = "BDFCAAEA65BD25AD";
       commit.gpgSign = lib.mkDefault false;
