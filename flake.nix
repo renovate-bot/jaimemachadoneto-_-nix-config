@@ -33,7 +33,7 @@
     git-hooks.flake = false;
 
     nix-secrets = {
-      url = "git+ssh://git@github.com/jaimemachado/nix-secrets?shallow=1&ref=main";
+      url = "git+https://github.com/jaimemachado/nix-secrets.git";
       flake = false;
     };
 

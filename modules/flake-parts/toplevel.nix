@@ -5,7 +5,7 @@
   imports = [
     inputs.nixos-unified.flakeModules.default
     inputs.nixos-unified.flakeModules.autoWire
-    ../../config.nix # Import the config module
+    ../../modules/common/config.nix # Import the config module
   ];
   perSystem = { self', pkgs, ... }: {
     # For 'nix fmt'

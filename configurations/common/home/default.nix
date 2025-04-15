@@ -6,7 +6,7 @@ in
 {
   imports = [
     self.homeModules.default
-    ../../../config.nix
+    ../../../modules/common/config.nix
   ];
 
   nixpkgs.config = {
