@@ -225,6 +225,8 @@
 
       export TERM=xterm-256color
       export COLORTERM="truecolor"
+      [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
     '';
   };
 }

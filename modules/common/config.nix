@@ -6,7 +6,8 @@ let
       envHostname = builtins.getEnv "HOSTNAME";
       envHostname2 = builtins.getEnv "NAME";
       envHostname3 = builtins.getEnv "HOST";
-    in if envHostname2 != ""
+    in
+    if envHostname2 != ""
     then envHostname2
     else if envHostname != ""
     then envHostname
@@ -46,10 +47,10 @@ in
   config = {
     host = {
       isWSL = lib.mkDefault (
-        hostConfig.host.isWSL or (builtins.getEnv "WSL_DISTRO_NAME" != "")
+        hostConfig.host.isWSL
       );
       windowsUser = lib.mkDefault (
-        hostConfig.host.windowsUser or (builtins.getEnv "USER")
+        hostConfig.host.windowsUser
       );
       windowsGitPath = lib.mkDefault (
         hostConfig.host.windowsGitPath
