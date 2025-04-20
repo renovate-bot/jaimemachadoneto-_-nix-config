@@ -47,8 +47,8 @@
       ];
     };
   };
-  # sops.secrets."keys/atuin" = {
-  #   path = "${config.home.homeDirectory}/.local/share/atuin/key";
-  # };
+  sops.secrets."keys/atuin" = {
+    path = "${config.home.homeDirectory}/.local/share/atuin/key";
+  };
 
 }
