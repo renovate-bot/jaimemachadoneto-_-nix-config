@@ -10,7 +10,7 @@ self: super: {
   myfindin = self.callPackage "${packages}/myfindin" { };
   jmntool = self.callPackage "${packages}/jmntool" { };
   binocular-cli = self.callPackage "${packages}/binocular-cli" { };
-  omnix = inputs.omnix.packages.${self.system}.default;
+  # omnix = inputs.omnix.packages.${self.system}.default;
   zsh-term-title = self.callPackage "${packages}/zsh-term-title" { };
   zhooks = self.callPackage "${packages}/zhooks" { };
   fex = self.callPackage "${packages}/fex" { };

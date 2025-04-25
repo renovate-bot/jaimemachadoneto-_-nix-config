@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-e0LGj86FgWgermTXF7V19Ddi7Axlu4sMaB+Z2kf+bJc=";
   };
 
-  cargoHash = "sha256-rdc+B/U43NGrOG+cHm0w37gLG23Kl2v2ttnDbqPuJ5g=";
+  cargoHash = "sha256-E0hLhY9TRlRLcwQ3T2Zni9OMGr5EsbqklFPF/4QZwu0=";
 
   meta = {
     description = "Binocular-cli tool";

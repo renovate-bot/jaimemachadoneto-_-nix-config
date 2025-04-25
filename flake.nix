@@ -28,7 +28,7 @@
 
 
     # Devshell
-    omnix.url = "github:juspay/omnix";
+    # omnix.url = "github:juspay/omnix";
     git-hooks.url = "github:cachix/git-hooks.nix";
     git-hooks.flake = false;
 
@@ -61,10 +61,10 @@
       };
 
       # https://omnix.page/om/ci.html
-      flake.om.ci.default.ROOT = {
-        dir = ".";
-        steps.flake-check.enable = false; # Doesn't make sense to check nixos config on darwin!
-        steps.custom = { };
-      };
+      # flake.om.ci.default.ROOT = {
+      #   dir = ".";
+      #   steps.flake-check.enable = false; # Doesn't make sense to check nixos config on darwin!
+      #   steps.custom = { };
+      # };
     };
 }
