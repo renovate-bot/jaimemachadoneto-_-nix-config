@@ -17,6 +17,8 @@
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.inputs.flake-parts.follows = "flake-parts";
+    nvix.url = "github:niksingh710/nvix";
+
     nixos-vscode-server.flake = false;
     nixos-vscode-server.url = "github:nix-community/nixos-vscode-server";
 
