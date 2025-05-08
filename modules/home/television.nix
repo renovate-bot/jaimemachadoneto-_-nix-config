@@ -298,7 +298,7 @@
           "git push",
         ]
         "docker-images" = ["docker run"]
-        "git-repos" = ["nvim", "code", "hx", "git clone"]
+        "git-repos" = ["nvim", "code", "hx", "git clone", "gcode"]
         "git reflog" = ["git-reflog"]
         "go-task" = ["task", "go-task"]
 
