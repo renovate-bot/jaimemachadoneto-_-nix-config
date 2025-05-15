@@ -27,7 +27,18 @@ in
     git-filter-repo
     git-fixup
     delta-toggle
+    git-credential-manager
+    git-lfs
+    pinentry
   ];
+
+  programs.gpg.enable = true;
+
+  services.gpg-agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-curses;
+  };
+
 
   home.shellAliases = {
     toggle-delta-l = "export DELTA_FEATURES=\${delta-toggle l}";
@@ -112,15 +123,19 @@ in
       init.defaultBranch = "main"; # Undo breakage due to https://srid.ca/luxury-belief
       core.editor = "nvim";
       #protocol.keybase.allow = "always";
-      credential.helper =
-        let
-          #   linuxHelper = "${
-          #   pkgs.git.override { withLibsecret = true; }
-          # }/bin/git-credential-libsecret";
-          wslHelper = "${config.host.windowsGitPath}";
-          linuxHelper = "manager";
-        in
-        if config.host.isWSL then wslHelper else linuxHelper;
+      credential = {
+        helper =
+          let
+            #   linuxHelper = "${
+            #   pkgs.git.override { withLibsecret = true; }
+            # }/bin/git-credential-libsecret";
+            wslHelper = "${config.host.windowsGitPath}";
+            linuxHelper = "manager";
+          in
+          if config.host.isWSL then wslHelper else linuxHelper;
+      } // (if config.host.isWSL then { } else {
+        credentialStore = "gpg";
+      });
 
       pull.rebase = "false";
       user.signing.key = "BDFCAAEA65BD25AD";
