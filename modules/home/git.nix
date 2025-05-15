@@ -117,7 +117,7 @@ in
           #   linuxHelper = "${
           #   pkgs.git.override { withLibsecret = true; }
           # }/bin/git-credential-libsecret";
-          #   wslHelper = "${config.host.windowsGitPath}";
+          wslHelper = "${config.host.windowsGitPath}";
           linuxHelper = "manager";
         in
         if config.host.isWSL then wslHelper else linuxHelper;
