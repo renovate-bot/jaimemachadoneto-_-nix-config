@@ -114,12 +114,13 @@ in
       #protocol.keybase.allow = "always";
       credential.helper =
         let
-          linuxHelper = "${
-          pkgs.git.override { withLibsecret = true; }
-        }/bin/git-credential-libsecret";
-          wslHelper = "${config.host.windowsGitPath}";
+          #   linuxHelper = "${
+          #   pkgs.git.override { withLibsecret = true; }
+          # }/bin/git-credential-libsecret";
+          #   wslHelper = "${config.host.windowsGitPath}";
+          linuxHelper = "manager";
         in
-        if config.host.isWSL then wslHelper else wslHelper;
+        if config.host.isWSL then wslHelper else linuxHelper;
 
       pull.rebase = "false";
       user.signing.key = "BDFCAAEA65BD25AD";
