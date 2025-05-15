@@ -37,6 +37,10 @@ in
   services.gpg-agent = {
     enable = true;
     pinentryPackage = pkgs.pinentry-curses;
+    enableExtraSocket = true;
+    enableScDaemon = false;
+    defaultCacheTtl = 1800;
+    maxCacheTtl = 7200;
   };
 
 
