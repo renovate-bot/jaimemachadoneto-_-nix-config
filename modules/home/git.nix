@@ -35,7 +35,7 @@ in
   programs.gpg.enable = true;
 
   services.gpg-agent = {
-    # enable = true;
+    enable = true;
     pinentry.package = pkgs.pinentry-curses;
     enableExtraSocket = true;
     enableScDaemon = false;
