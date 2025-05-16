@@ -29,7 +29,7 @@ in
     delta-toggle
     git-credential-manager
     git-lfs
-    pinentry
+    pinentry-curses
   ];
 
   programs.gpg.enable = true;
