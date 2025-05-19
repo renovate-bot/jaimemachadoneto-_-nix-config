@@ -8,6 +8,8 @@
     "gcode" = "code";
   };
 
-  services.vscode-server.enable = true;
+
+  #TODO: Disable due to issue https://github.com/nix-community/nixos-vscode-server/issues/90
+  services.vscode-server.enable = false;
   # services.vscode-server.installPath = "~/.vscode-server-insiders";
 }
