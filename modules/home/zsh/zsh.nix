@@ -221,7 +221,7 @@
       bindkey  "^[[3~"  delete-char
       bindkey  "^[[H"   beginning-of-line
       bindkey  "^[[F"   end-of-line
-      bindkey  "^F"     _myfindin
+      # bindkey  "^F"     _myfindin
 
       export TERM=xterm-256color
       export COLORTERM="truecolor"
