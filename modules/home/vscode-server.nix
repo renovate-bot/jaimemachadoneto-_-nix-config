@@ -6,7 +6,11 @@
 
   home.shellAliases = {
     "gcode" = "code";
+    "grcode" = "rcode";
   };
+  home.packages = with pkgs; [
+    rcode
+  ];
 
 
   #TODO: Disable due to issue https://github.com/nix-community/nixos-vscode-server/issues/90

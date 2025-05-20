@@ -287,6 +287,7 @@
           "gunzip",
           "xz",
           "code",
+          "rcode",
         ]
         "git-diff" = ["git add", "git restore"]
         "git-branch" = [
@@ -298,7 +299,7 @@
           "git push",
         ]
         "docker-images" = ["docker run"]
-        "git-repos" = ["nvim", "code", "hx", "git clone", "gcode"]
+        "git-repos" = ["nvim", "code", "hx", "git clone", "gcode" "grcode"]
         "git reflog" = ["git-reflog"]
         "go-task" = ["task", "go-task"]
 
