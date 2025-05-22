@@ -80,6 +80,8 @@
 
     initExtraFirst = ''
 
+      export PATH="$HOME/bin:$PATH"
+
       update() {
         nixos-rebuild --flake .#$(echo $USER)@$(cat /etc/hostname)-x86_64 switch
       }
