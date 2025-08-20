@@ -55,7 +55,10 @@
         file-browser.enable = true;
       };
     };
-
+    lspconfig = {
+      enable = true;
+      autoLoad = true;
+    };
     # Dev
     lsp = {
       enable = true;
@@ -73,7 +76,6 @@
         };
         gopls = {
           enable = true;
-          installGo = false; # Managed by Nix devShell
         };
       };
     };
