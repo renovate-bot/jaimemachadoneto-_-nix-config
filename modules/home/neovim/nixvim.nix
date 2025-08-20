@@ -71,6 +71,10 @@
           installCargo = false;
           installRustc = false;
         };
+        gopls = {
+          enable = true;
+          installGo = false; # Managed by Nix devShell
+        };
       };
     };
     lazygit.enable = true;
