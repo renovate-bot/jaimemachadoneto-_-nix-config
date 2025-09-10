@@ -53,8 +53,8 @@ in
     inherit package;
     # difftastic.enable = true;
     enable = true;
-    userName = "Jaime Machado"; #flake.config.me.fullname;
-    userEmail = "jaime.machado@gmail.com"; #flake.config.me.email;
+    userName = "${config.host.gitName}"; #flake.config.me.name;
+    userEmail = "${config.host.gitEmail}"; #flake.config.me.email;
     lfs.enable = true;
 
     delta = {

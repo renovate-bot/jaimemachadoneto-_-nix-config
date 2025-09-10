@@ -41,6 +41,17 @@ in
         default = "";
         description = "Windows Git path for WSL";
       };
+
+      gitEmail = lib.mkOption {
+        type = lib.types.str;
+        default = "jaime.machado@gmail.com";
+        description = "Git email for commits";
+      };
+      gitName = lib.mkOption {
+        type = lib.types.str;
+        default = "Jaime Machado Neto";
+        description = "Git user name for commits";
+      };
     };
   };
 
@@ -54,6 +65,12 @@ in
       );
       windowsGitPath = lib.mkDefault (
         hostConfig.host.windowsGitPath
+      );
+      gitEmail = lib.mkDefault (
+        hostConfig.host.gitEmail
+      );
+      gitName = lib.mkDefault (
+        hostConfig.host.gitName
       );
     };
   };
