@@ -15,13 +15,22 @@ let
     then envHostname3
     else builtins.getEnv "NIXOS_HOSTNAME";
 
+  # Default host configuration
+  defaultHostConfig = {
+    host = {
+      isWSL = builtins.getEnv "WSL_DISTRO_NAME" != "";
+      windowsUser = "";
+      windowsGitPath = "";
+      gitEmail = "jaime.machado@gmail.com";
+      gitName = "Jaime Machado Neto";
+    };
+  };
+
   # Try to load host-specific config from nix-secrets, fallback to default if it doesn't exist
   hostConfig =
-    if builtins.pathExists "${flake.inputs.nix-secrets}/hosts/${hostname}.nix"
-    then import "${flake.inputs.nix-secrets}/hosts/${hostname}.nix"
-    # else if flake != null && builtins.pathExists "${flake.inputs.nix-secrets}/hosts/default.nix"
-    # then import "${flake.inputs.nix-secrets}/hosts/default.nix"
-    else { host.isWSL = builtins.getEnv "WSL_DISTRO_NAME" != ""; };
+    if flake != null && builtins.pathExists "${flake.inputs.nix-secrets}/hosts/${hostname}.nix"
+    then lib.recursiveUpdate defaultHostConfig (import "${flake.inputs.nix-secrets}/hosts/${hostname}.nix")
+    else defaultHostConfig;
 in
 {
   options = {
@@ -57,21 +66,11 @@ in
 
   config = {
     host = {
-      isWSL = lib.mkDefault (
-        hostConfig.host.isWSL
-      );
-      windowsUser = lib.mkDefault (
-        hostConfig.host.windowsUser
-      );
-      windowsGitPath = lib.mkDefault (
-        hostConfig.host.windowsGitPath
-      );
-      gitEmail = lib.mkDefault (
-        hostConfig.host.gitEmail
-      );
-      gitName = lib.mkDefault (
-        hostConfig.host.gitName
-      );
+      isWSL = lib.mkDefault hostConfig.host.isWSL;
+      windowsUser = lib.mkDefault hostConfig.host.windowsUser;
+      windowsGitPath = lib.mkDefault hostConfig.host.windowsGitPath;
+      gitEmail = lib.mkDefault hostConfig.host.gitEmail;
+      gitName = lib.mkDefault hostConfig.host.gitName;
     };
   };
 }
