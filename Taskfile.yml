@@ -61,8 +61,8 @@ tasks:
   activate:home:
     desc: Activates nix home-configuration
     cmds:
-      - export HOME=$(hostname)
-      - home-manager switch --flake .#$USER --impure
+      - export HOST=$(hostname)
+      - HOST=$(hostname) home-manager switch --flake .#$USER --impure
 
   test::docker-build:
     desc: Build the CI Docker image
