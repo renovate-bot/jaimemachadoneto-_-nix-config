@@ -7,6 +7,7 @@ in
   imports = [
     self.homeModules.default
     ../../../modules/common/config.nix
+    ../../../modules/home/sops-helpers.nix
   ];
 
   nixpkgs.config = {
