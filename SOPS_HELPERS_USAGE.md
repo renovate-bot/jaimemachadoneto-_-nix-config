@@ -171,7 +171,7 @@ For each secret, the helper creates:
 
 Secrets without custom `filePath` are stored in:
 
-```
+```bash
 ~/.local/share/secrets/[secretPath with / replaced by -]
 ```
 
