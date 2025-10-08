@@ -13,10 +13,10 @@ let
     # Default file path based on secret path
     defaultPath = "${config.home.homeDirectory}/.local/share/secrets/${builtins.replaceStrings ["/"] ["-"] secretPath}";
     actualPath = if filePath != null then filePath else defaultPath;
-    
+
     # Handle both single string and list of strings for envVar
     envVarList = if builtins.isList envVar then envVar else [ envVar ];
-    
+
     # Create PATH variables for each envVar (if enabled)
     pathVars = lib.listToAttrs (lib.flatten (map (var:
       lib.optional createPathVar {
@@ -24,14 +24,14 @@ let
         value = actualPath;
       }
     ) envVarList));
-    
+
     # Create shell initialization for all environment variables
     shellInitLines = map (var: ''
       # Load ${secretPath} secret content into ${var}
       if [[ -f "${actualPath}" ]]; then
         export ${var}="$(cat ${actualPath})"
       fi'') envVarList;
-      
+
   in {
     # SOPS secret configuration
     sopsSecret = {

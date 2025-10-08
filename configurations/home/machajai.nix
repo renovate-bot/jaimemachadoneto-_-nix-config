@@ -21,20 +21,20 @@ let
     #   secretPath = "api/openai";
     #   envVar = "OPENAI_API_KEY";
     # })
-    
+
     # Multiple environment variables from same secret
     # (mkSopsSecret {
     #   secretPath = "database/postgres";
     #   envVar = [ "DATABASE_URL" "POSTGRES_URL" "DB_URL" ];
     #   createPathVar = false;  # Don't create *_PATH variables
     # })
-    
+
     # GitHub token with multiple aliases
     # (mkSopsSecret {
     #   secretPath = "api/github";
     #   envVar = [ "GITHUB_TOKEN" "GH_TOKEN" "GITHUB_API_KEY" ];
     # })
-    
+
     # SSH key
     # (mkSopsSecret {
     #   secretPath = "ssh/deploy-key";
