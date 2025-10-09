@@ -10,6 +10,7 @@ self: super: {
   myfindin = self.callPackage "${packages}/myfindin" { };
   jmntool = self.callPackage "${packages}/jmntool" { };
   binocular-cli = self.callPackage "${packages}/binocular-cli" { };
+  copilot = self.callPackage "${packages}/copilot-cli" { };
   rcode = self.callPackage "${packages}/rcode" { };
   zsh-term-title = self.callPackage "${packages}/zsh-term-title" { };
   zhooks = self.callPackage "${packages}/zhooks" { };
