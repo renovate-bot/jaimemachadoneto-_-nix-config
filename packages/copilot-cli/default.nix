@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { }, envVars ? { } }:
 
 let
   inherit (pkgs)
@@ -44,10 +44,25 @@ buildNpmPackage {
 
   npmDepsHash = "sha256-KIFUotHevVgk7ZlJu1xLHYdKWA1tYHfEK8cyME4Xt/g=";
 
-  postInstall = ''
-    wrapProgram "$out/bin/copilot" \
-      --prefix PATH : ${lib.makeBinPath [ nodejs_22 ]}
-  '';
+    postInstall =
+      let
+        envArgs = lib.concatLists (lib.mapAttrsToList (name: value:
+          if lib.isAttrs value then
+            let
+              filePath = value.fromFile or value.filePath or value.path or (throw "copilot env var ${name}: expected fromFile/filePath/path attribute");
+              fileQuoted = lib.escapeShellArg filePath;
+              command = value.command or ''if [ -f ${fileQuoted} ]; then export ${name}="$(cat ${fileQuoted})"; fi'';
+            in [ "--run" command ]
+          else
+            [ "--set" name (builtins.toString value) ]) envVars);
+        wrapArgs =
+          [ "--prefix" "PATH" ":" (lib.makeBinPath [ nodejs_22 ]) ]
+          ++ envArgs;
+        wrapArgsString = lib.concatMapStringsSep " " lib.escapeShellArg wrapArgs;
+      in
+      ''
+        wrapProgram "$out/bin/copilot" ${wrapArgsString}
+      '';
 
   meta = with lib; {
     description = "GitHub Copilot CLI";

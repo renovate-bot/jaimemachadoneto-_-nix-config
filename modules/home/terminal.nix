@@ -48,7 +48,6 @@ in
     binocular-cli
     myfindin
     jmntool
-    copilot
     fex
   ];
 

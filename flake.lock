@@ -324,11 +324,11 @@
     "nix-secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1760094313,
-        "narHash": "sha256-umDUYcK4ozzT77o/JeYMHIjnRmWU/PQ14HGnfMfFW58=",
+        "lastModified": 1760095339,
+        "narHash": "sha256-qWC19IJORbVrZh7op3Elh0/J3ynQ56uOwXbzNH9tmJk=",
         "ref": "refs/heads/main",
-        "rev": "4fd12541553507b43c207cda88c77270fca8613a",
-        "revCount": 82,
+        "rev": "65bfefae14bd32353e09f117f4f4d83b004a37a3",
+        "revCount": 83,
         "type": "git",
         "url": "https://github.com/jaimemachado/nix-secrets.git"
       },
