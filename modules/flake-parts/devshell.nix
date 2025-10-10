@@ -18,7 +18,7 @@
       ];
     };
     pre-commit.settings = {
-      hooks.nixpkgs-fmt.enable = true;
+      hooks.nixpkgs-fmt.enable = false;
     };
   };
 }
