@@ -10,6 +10,8 @@ in
     ../../../modules/home/sops-helpers.nix
   ];
 
+
+
   nixpkgs.config = {
     allowBroken = true;
     allowUnfree = true;
