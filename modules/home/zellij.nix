@@ -1,16 +1,74 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 
+let
+
+
+  layouts = {
+    dev = ''
+      layout {
+        pane size=1 borderless=true {
+          plugin location="zellij:tab-bar"
+        }
+        pane split_direction="vertical" {
+          pane {
+            command "${pkgs.zsh}/bin/zsh"
+          }
+        }
+        pane size=1 borderless=true {
+          plugin location="zellij:status-bar"
+        }
+      };
+    '';
+  };
+
+  # Convert layouts attrset -> xdg.configFile entries
+  layoutConfigFiles =
+    lib.mapAttrs' (name: content: {
+      name = "zellij/layouts/${name}.kdl";
+      value = { text = content; };
+    }) layouts;
+in
 {
   programs.zellij = {
     enable = true;
+    package = pkgs.zellij;              # Override if you want a patched build
+    enableZshIntegration = true;
+    enableBashIntegration = true;
+    # enableFishIntegration = true;
+
+
+
+    # If you want to provide an entire manual config file instead of settings:
+    # configFile = ./my-full-config.kdl;
+
+    # Keybinding map (only a small sample; extend as needed)
+
+
     settings = {
-      # theme = if pkgs.system == "aarch64-darwin" then "dracula" else "gruvbox-light";
-      theme = "dracula";
-      # NOTE: There's no way to set theme by name.
-      # See https://github.com/nix-community/home-manager/issues/3854
-      # But we can manually convert this syntax using LLM,
-      # https://github.com/zellij-org/zellij/blob/main/zellij-utils/assets/themes/gruvbox.kdl
-      themes.dracula = {
+      # Optional additional WASM plugins (placeholders)
+      plugins = [ ];
+
+
+      # Theme selection (built‑in or one you define below)
+      theme = "custom-dracula";
+      default_shell = "${pkgs.zsh}/bin/zsh";
+      default_layout = "dev";         # Must match a name in defaultLayouts
+      pane_frames = true;
+      mouse_mode = true;
+      simplified_ui = false;
+      scrollback_lines = 20000;
+      copy_command =
+        if pkgs.stdenv.isLinux then "wl-copy" else "pbcopy";
+      mirror_session = false;
+      session_serialization = true;
+      disable_automatic_rename = false;
+      display_tab_numbers = true;
+      on_force_close = "quit";        # (quit|detach)
+      # Example: plugin search paths (if you add external WASM)
+      plugin_dirs = [ "${pkgs.zellij}/share/zellij/plugins" ];
+
+      # Custom theme definition
+      themes.custom-dracula = {
         fg = [ 248 248 242 ];
         bg = [ 40 42 54 ];
         black = [ 0 0 0 ];
@@ -23,19 +81,30 @@
         white = [ 255 255 255 ];
         orange = [ 255 184 108 ];
       };
-      themes.gruvbox-light = {
-        fg = [ 124 111 100 ];
-        bg = [ 251 82 75 ];
-        black = [ 40 40 40 ];
-        red = [ 205 75 69 ];
-        green = [ 152 151 26 ];
-        yellow = [ 215 153 33 ];
-        blue = [ 69 133 136 ];
-        magenta = [ 177 98 134 ];
-        cyan = [ 104 157 106 ];
-        white = [ 213 196 161 ];
-        orange = [ 214 93 14 ];
+
+      # Another minimal theme example
+      themes.minimal = {
+        fg = [ 230 230 230 ];
+        bg = [ 20 20 20 ];
+        black = [ 20 20 20 ];
+        red = [ 220 50 47 ];
+        green = [ 133 153 0 ];
+        yellow = [ 181 137 0 ];
+        blue = [ 38 139 210 ];
+        magenta = [ 211 54 130 ];
+        cyan = [ 42 161 152 ];
+        white = [ 238 232 213 ];
+        orange = [ 203 75 22 ];
       };
+
     };
   };
+
+ # Materialize layout files under ~/.config/zellij/layouts/
+  xdg.configFile = layoutConfigFiles;
+
+  # Suggest ensuring clipboard utilities exist
+  home.packages = lib.mkAfter (
+    lib.optional pkgs.stdenv.isLinux pkgs.wl-clipboard
+  );
 }

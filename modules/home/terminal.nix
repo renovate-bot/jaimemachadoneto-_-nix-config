@@ -69,6 +69,7 @@ in
     vim = "nvim";
     # cat = "ccat";
     # less = "cless";
+    "gdu" = "ncdu";
     af = "alias | fzf";
     #ls
     # "l" = "ls -lha";
