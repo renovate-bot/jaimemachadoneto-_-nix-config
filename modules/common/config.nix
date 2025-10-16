@@ -62,6 +62,12 @@ in
         description = "Git user name for commits";
       };
     };
+    kubernetesSoapsSecretPath = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "Path to the Kubernetes SOPS secret";
+    };
+
   };
 
   config = {

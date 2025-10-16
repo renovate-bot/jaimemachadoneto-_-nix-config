@@ -11,6 +11,12 @@ let
       envVar = "ATUIN_KEY";
       filePath = "${config.home.homeDirectory}/.local/share/atuin/key";
     })
+    # (mkSopsSecret {
+    #   secretPath = "keys/khomelab/kubeconfig";
+    #   envVar = "KUBECONFIG";
+    #   filePath = "${config.home.homeDirectory}/.kube/config";
+    # })
+
     # Add more secrets as needed:
     # (mkSopsSecret {
     #   secretPath = "keys/work-token";
@@ -34,7 +40,9 @@ in {
     ${mySecrets.shellInit}
   '';
 
+  kubernetesSoapsSecretPath = "keys/khomelab/kubeconfig";
   programs.bash.initExtra = ''
     ${mySecrets.shellInit}
   '';
+
 }
