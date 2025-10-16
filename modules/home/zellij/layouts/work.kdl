@@ -1,0 +1,49 @@
+layout {
+    tab name="nvim" focus=true {
+        pane
+    }
+
+    tab name="shell" {
+        pane
+    }
+
+    default_tab_template {
+        children
+        pane size=1 borderless=true {
+            borderless true
+            plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
+                format_left   "{mode}"
+                format_center "#[bg=#181820]{tabs}"
+                format_right  "#[bg=#181820,fg=#89b4fa] {session} "
+                format_space  "#[bg=#181820]"
+
+                border_position "top"
+
+                mode_normal        "#[bg=#181820,fg=#89b4fa]  #[bg=#181820,fg=#181820]█"
+                mode_locked        "#[bg=#6e738d,fg=#181820]  #[bg=#181820,fg=#6e738d]█"
+                mode_resize        "#[bg=#f38ba8,fg=#181820]  #[bg=#181820,fg=#f38ba8]█"
+                mode_pane          "#[bg=#89b4fa,fg=#181820]  #[bg=#181820,fg=#89b4fa]█"
+                mode_tab           "#[bg=#b4befe,fg=#181820]  #[bg=#181820,fg=#b4befe]█"
+                mode_scroll        "#[bg=#f9e2af,fg=#181820] scroll#[bg=#181820,fg=#f9e2af]█"
+                mode_enter_search  "#[bg=#8aadf4,fg=#181820] ent-search#[bg=#181820,fg=#8aadf4]█"
+                mode_search        "#[bg=#8aadf4,fg=#181820] SEARCH#[bg=#181820,fg=#8aadf4]█"
+                mode_rename_tab    "#[bg=#b4befe,fg=#181820] rename-tab#[bg=#181820,fg=#b4befe]█"
+                mode_rename_pane   "#[bg=#89b4fa,fg=#181820] rename-pane#[bg=#181820,fg=#89b4fa]█"
+                mode_session       "#[bg=#74c7ec,fg=#181820] session#[bg=#181820,fg=#74c7ec]█"
+                mode_move          "#[bg=#f5c2e7,fg=#181820] move#[bg=#181820,fg=#f5c2e7]█"
+                mode_prompt        "#[bg=#8aadf4,fg=#181820] prompt#[bg=#181820,fg=#8aadf4]█"
+                mode_tmux          "#[bg=#f5a97f,fg=#181820]  #[bg=#181820,fg=#f5a97f]█"
+
+                tab_normal              "#[bg=#181820,fg=#6C7086]{index}.{name}{floating_indicator}"
+                tab_active              "#[bg=#181820,fg=#89b4fa]{index}.{name}{fullscreen_indicator}{sync_indicator}{floating_indicator}"
+                tab_floating_indicator   "󰉈 "
+                tab_fullscreen_indicator " 󰊓 "
+                tab_separator           "#[bg=#181820,fg=#6C7086] ⋮ "
+                tab_sync_indicator       "  "
+            }
+        }
+        pane size=1 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+}
