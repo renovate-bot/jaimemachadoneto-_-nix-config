@@ -39,6 +39,8 @@ in
     nixpkgs-fmt
     gcc
 
+    claude-code
+
     # On ubuntu, we need this less for `man home-configuration.nix`'s pager to
     # work.
     less
