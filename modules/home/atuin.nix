@@ -20,7 +20,7 @@
       secrets_filter = true;
       keymap_mode = "emacs";
       prefers_reduced_motion = true;
-      style = "compact";
+      style = "auto";
       inline_height = 10;
       # key_path = config.sops.secrets."keys/atuin".path; #"/run/secrets/atuin_secret";
       common_subcommands = [

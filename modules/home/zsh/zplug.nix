@@ -9,6 +9,7 @@
       # }
       { name = "zsh-users/zsh-autosuggestions"; }
       { name = "zsh-users/zsh-syntax-highlighting"; }
+      { name = "zsh-users/zsh-autocomplete"; }
       { name = "zsh-users/zsh-completions"; }
       {
         name = "plugins/history";
