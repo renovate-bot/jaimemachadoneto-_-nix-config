@@ -225,7 +225,7 @@ let
 in
 {
   # Only basic options (manual config file approach)
-  programs.zellij.enable = true;
+  programs.zellij.enable = false;
   programs.zellij.package = pkgs.zellij;
   programs.zellij.enableZshIntegration = true;
   programs.zellij.enableBashIntegration = true;
