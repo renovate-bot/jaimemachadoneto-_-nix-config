@@ -1,10 +1,6 @@
 { pkgs, config, ... }:
-
-let
-  kubernetesSoapsSecretPath = config.kubernetesSoapsSecretPath;
-in
 {
-  sops.secrets."${config.kubernetesSoapsSecretPath}" = {
+  sops.secrets."${config.host.kubernetesSoapsSecretPath}" = {
     path = "${config.home.homeDirectory}/.kube/config";
   };
 }

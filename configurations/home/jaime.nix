@@ -40,7 +40,6 @@ in {
     ${mySecrets.shellInit}
   '';
 
-  kubernetesSoapsSecretPath = "keys/khomelab/kubeconfig";
   programs.bash.initExtra = ''
     ${mySecrets.shellInit}
   '';
