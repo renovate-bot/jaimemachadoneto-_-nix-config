@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   # Use the shared helper functions
@@ -12,7 +12,7 @@ let
       filePath = "${config.home.homeDirectory}/.local/share/atuin/key";
     })
     (mkSopsSecret {
-      secretPath = "keys/github-token/machajai";
+      secretPath = "keys/hp/github-token/machajai";
       envVar = "ghe_auth_token";
       filePath = "${config.home.homeDirectory}/.config/github/token";
     })
@@ -50,6 +50,7 @@ in {
   ];
 
   home.username = "machajai";
+  home.homeDirectory = lib.mkDefault "/${if pkgs.stdenv.isDarwin then "Users" else "home"}/machajai";
 
   # Apply the secrets configuration using helper function
   inherit (mySecrets) sops;

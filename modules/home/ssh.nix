@@ -3,8 +3,7 @@
   programs.ssh = {
     enable = true;
 
-    addKeysToAgent = "yes";
-
+    enableDefaultConfig = false;
     # Note: More defined in juspay.nix
     matchBlocks = {
       "*" = {
@@ -12,6 +11,7 @@
           # https://ghostty.org/docs/help/terminfo#configure-ssh-to-fall-back-to-a-known-terminfo-entry
           TERM = "xterm-256color";
         };
+        addKeysToAgent = "yes";
       };
       pureintent = {
         forwardAgent = true;
