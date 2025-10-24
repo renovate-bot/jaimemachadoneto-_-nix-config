@@ -9,9 +9,9 @@
   #   plugins = with pkgs; [ gh awscli2 cachix ];
   # };
 
-  # home.packages = [
-  #   pkgs._1password
-  #   pkgs._1password-gui
-  #   pkgs._1password-cli
-  # ];
+  home.packages = [
+    pkgs._1password
+    pkgs._1password-gui
+    pkgs._1password-cli
+  ];
 }
