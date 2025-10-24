@@ -56,6 +56,7 @@ in {
   inherit (mySecrets) sops;
   home.sessionVariables = mySecrets.home.sessionVariables;
 
+  _1password.enable = false;
   # Shell initialization to load secret content into environment variables
   programs.zsh.initExtra = ''
     ${mySecrets.shellInit}

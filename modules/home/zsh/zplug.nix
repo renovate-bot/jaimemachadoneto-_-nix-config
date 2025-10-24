@@ -9,7 +9,10 @@
       # }
       { name = "zsh-users/zsh-autosuggestions"; }
       { name = "zsh-users/zsh-syntax-highlighting"; }
-      { name = "zsh-users/zsh-autocomplete"; }
+      {
+        name = "plugins/zsh-autocomplete";
+        tags = [ "from:oh-my-zsh" ];
+      }
       {
         name = "plugins/zsh-completions";
         tags = [ "from:oh-my-zsh" ];
