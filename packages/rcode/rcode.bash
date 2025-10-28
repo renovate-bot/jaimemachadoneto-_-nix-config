@@ -7,13 +7,12 @@ WSL_PORT=9999
 # Detect the SSH connection string to identify this host
 # This will be sent to WSL so it knows which host to connect to
 if [ -n "$SSH_CONNECTION" ]; then
-    # Get the username and hostname
-    CURRENT_USER=$(whoami)
+    # Get the hostname
     CURRENT_HOST=$(hostname -f 2>/dev/null || hostname)
-    SSH_IDENTIFIER="${CURRENT_USER}@${CURRENT_HOST}"
+    SSH_IDENTIFIER="${CURRENT_HOST}"
 else
     echo "Warning: Not in an SSH session, using fallback identifier"
-    SSH_IDENTIFIER="$(whoami)@$(hostname)"
+    SSH_IDENTIFIER="$(hostname)"
 fi
 
 if [ $# -eq 0 ]; then
