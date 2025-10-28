@@ -17,17 +17,27 @@ while true; do
     DATA=$(nc -l ${LISTEN_PORT})
 
     if [ -n "$DATA" ]; then
-        # Parse the data: format is "HOSTNAME|PATH"
+        # Parse the data: format is "HOSTNAME|TYPE|PATH"
         REMOTE_HOST=$(echo "$DATA" | cut -d'|' -f1)
-        REMOTE_PATH=$(echo "$DATA" | cut -d'|' -f2)
+        ITEM_TYPE=$(echo "$DATA" | cut -d'|' -f2)
+        REMOTE_PATH=$(echo "$DATA" | cut -d'|' -f3)
 
         echo "[$(date)] Received from: $REMOTE_HOST"
+        echo "[$(date)] Type: $ITEM_TYPE"
         echo "[$(date)] Path: $REMOTE_PATH"
 
-        # Execute code command to open the path
-        code --folder-uri "vscode-remote://ssh-remote+${REMOTE_HOST}${REMOTE_PATH}" &
-
-        echo "[$(date)] Opened in VS Code"
+        # Execute different commands based on type
+        if [ "$ITEM_TYPE" = "folder" ]; then
+            # Open folder/workspace
+            code --folder-uri "vscode-remote://ssh-remote+${REMOTE_HOST}${REMOTE_PATH}" &
+            echo "[$(date)] Opened folder in VS Code"
+        elif [ "$ITEM_TYPE" = "file" ]; then
+            # Open specific file
+            code --file-uri "vscode-remote://ssh-remote+${REMOTE_HOST}${REMOTE_PATH}" &
+            echo "[$(date)] Opened file in VS Code"
+        else
+            echo "[$(date)] Unknown type: $ITEM_TYPE"
+        fi
         echo ""
     fi
 done
