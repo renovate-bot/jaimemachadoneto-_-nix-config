@@ -27,6 +27,8 @@ in
   # Common state version
   home.stateVersion = "24.11";
 
+  remote-vscode-listener.enable = config.host.enableVscodeRemoteListener;
+
   # Common system settings
   home.homeDirectory = lib.mkDefault "/${if pkgs.stdenv.isDarwin then "Users" else "home"}/${config.home.username}";
 }

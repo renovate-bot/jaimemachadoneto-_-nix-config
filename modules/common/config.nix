@@ -66,6 +66,11 @@ in
         default = "";
         description = "Path to the Kubernetes SOPS secret";
       };
+      enableVscodeRemoteListener = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Enables vscode remote listener service";
+      };
     };
 
   };

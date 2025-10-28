@@ -5,7 +5,7 @@
 , netcat
 }:
 (writeShellApplication {
-  name = "listerner-code";
+  name = "listener-code";
   runtimeInputs = [ bash netcat ];
   text = builtins.readFile ./listener-code.bash;
 })
