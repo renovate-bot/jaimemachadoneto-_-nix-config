@@ -10,6 +10,7 @@
   };
   home.packages = with pkgs; [
     rcode
+    listener-code
   ];
 
 

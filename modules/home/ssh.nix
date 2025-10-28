@@ -17,6 +17,14 @@
         forwardAgent = true;
       };
     };
+    extraConfig = "
+      Host npdu1920
+        HostName npdu1920.bcn.rd.hpicorp.net
+        User machajai
+        RemoteForward 9999 localhost:9999
+    ";
+
+
   };
 
   home.packages = with pkgs; [ autossh ];

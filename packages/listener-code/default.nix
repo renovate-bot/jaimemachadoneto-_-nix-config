@@ -5,9 +5,9 @@
 , netcat
 }:
 (writeShellApplication {
-  name = "rcode";
+  name = "listerner-code";
   runtimeInputs = [ bash netcat ];
-  text = builtins.readFile ./rcode.bash;
+  text = builtins.readFile ./listener-code.bash;
 })
   // {
   meta = with lib; {

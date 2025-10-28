@@ -12,6 +12,7 @@ self: super: {
   binocular-cli = self.callPackage "${packages}/binocular-cli" { };
   copilot = self.callPackage "${packages}/copilot-cli" { };
   rcode = self.callPackage "${packages}/rcode" { };
+  listener-code = self.callPackage "${packages}/listener-code" { };
   zsh-term-title = self.callPackage "${packages}/zsh-term-title" { };
   zhooks = self.callPackage "${packages}/zhooks" { };
   fex = self.callPackage "${packages}/fex" { };

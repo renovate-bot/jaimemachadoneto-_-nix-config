@@ -1,0 +1,33 @@
+#!/bin/bash
+# =============================================================================
+# PART 1: Script to run on WSL (listener service)
+# Save as: ~/remote-vscode-listener.sh
+# =============================================================================
+# This script listens for commands from the remote box and opens VS Code
+# Run this in a tmux/screen session or as a background service
+
+LISTEN_PORT=9999
+
+echo "Remote VS Code listener starting on port ${LISTEN_PORT}..."
+echo "Waiting for commands from remote host..."
+echo ""
+
+while true; do
+    # Listen for incoming connection (OpenBSD nc syntax)
+    DATA=$(nc -l ${LISTEN_PORT})
+
+    if [ -n "$DATA" ]; then
+        # Parse the data: format is "HOSTNAME|PATH"
+        REMOTE_HOST=$(echo "$DATA" | cut -d'|' -f1)
+        REMOTE_PATH=$(echo "$DATA" | cut -d'|' -f2)
+
+        echo "[$(date)] Received from: $REMOTE_HOST"
+        echo "[$(date)] Path: $REMOTE_PATH"
+
+        # Execute code command to open the path
+        code --folder-uri "vscode-remote://ssh-remote+${REMOTE_HOST}${REMOTE_PATH}" &
+
+        echo "[$(date)] Opened in VS Code"
+        echo ""
+    fi
+done

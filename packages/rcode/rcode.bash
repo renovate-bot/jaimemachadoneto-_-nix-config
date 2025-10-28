@@ -1,29 +1,52 @@
-#! /bin/bash
+#!/bin/bash
+# This script runs on the REMOTE box
 
-max_retry=10
+WSL_HOST="localhost"  # This works through the reverse tunnel
+WSL_PORT=9999
 
-for i in $(seq 1 $max_retry); do
-    # shellcheck disable=SC2012
-    recent_folder=$(ls -d ~/.vscode-server/cli/servers/*/ -t | head -n1 | tail -1)
-    # shellcheck disable=SC2116
-    script=$(echo "$recent_folder/server/bin/remote-cli/code")
-    if [[ -z ${script} ]]; then
-        echo "VSCode remote script not found"
-        exit 1
-    fi
-    # shellcheck disable=SC2012
-    # shellcheck disable=SC2086
-    socket=$(ls /run/user/$UID/vscode-ipc-* -t | head -n$i | tail -1)
-    if [[ -z ${socket} ]]; then
-        echo "VSCode IPC socket not found"
-        exit 1
-    fi
-    export VSCODE_IPC_HOOK_CLI=${socket}
-    ${script} "$@" 2>/dev/null
-    # shellcheck disable=SC2181
-    if [ "$?" -eq "0" ]; then
-        exit 0
-    fi
-done
+# Detect the SSH connection string to identify this host
+# This will be sent to WSL so it knows which host to connect to
+if [ -n "$SSH_CONNECTION" ]; then
+    # Get the username and hostname
+    CURRENT_USER=$(whoami)
+    CURRENT_HOST=$(hostname -f 2>/dev/null || hostname)
+    SSH_IDENTIFIER="${CURRENT_USER}@${CURRENT_HOST}"
+else
+    echo "Warning: Not in an SSH session, using fallback identifier"
+    SSH_IDENTIFIER="$(whoami)@$(hostname)"
+fi
 
-echo "Failed to find valid VS Code window"
+if [ $# -eq 0 ]; then
+    echo "Usage: rcode <file or folder>"
+    echo "Example: rcode /etc/nginx/nginx.conf"
+    echo "Example: rcode ."
+    echo ""
+    echo "This host will be identified as: $SSH_IDENTIFIER"
+    exit 1
+fi
+
+TARGET="$1"
+
+# Convert to absolute path
+if [ -d "$TARGET" ]; then
+    ABS_PATH=$(cd "$TARGET" && pwd)
+elif [ -f "$TARGET" ]; then
+    ABS_PATH=$(cd "$(dirname "$TARGET")" && pwd)/$(basename "$TARGET")
+else
+    echo "Error: $TARGET does not exist"
+    exit 1
+fi
+
+echo "Host identifier: $SSH_IDENTIFIER"
+echo "Sending request to open: $ABS_PATH"
+
+# Send the host and path through the reverse tunnel to WSL
+# Format: HOSTNAME|PATH
+
+if printf "%s|%s\n" "$SSH_IDENTIFIER" "$ABS_PATH" | nc -N "$WSL_HOST" "$WSL_PORT"; then
+    echo "Request sent successfully"
+else
+    echo "Error: Could not connect to WSL listener"
+    echo "Make sure the reverse SSH tunnel is active"
+    exit 1
+fi
