@@ -7,8 +7,36 @@
 # Run this in a tmux/screen session or as a background service
 
 LISTEN_PORT=9999
+PIDFILE="/tmp/remote-vscode-listener.pid"
+
+# Check if PID file exists
+if [ -f "$PIDFILE" ]; then
+    PID=$(cat "$PIDFILE")
+    # Check if process is actually running
+    if ps -p "$PID" > /dev/null 2>&1; then
+        echo "Script is already running with PID: $PID"
+        exit 1
+    else
+        # PID file exists but process is not running (stale PID file)
+        echo "Removing stale PID file"
+        rm -f "$PIDFILE"
+    fi
+fi
+
+# Create PID file with current process ID
+echo $$ > "$PIDFILE"
+
+# Cleanup function to remove PID file on exit
+cleanup() {
+    echo ""
+    echo "[$(date)] Shutting down listener..."
+    rm -f "$PIDFILE"
+    exit 0
+}
+trap cleanup EXIT INT TERM
 
 echo "Remote VS Code listener starting on port ${LISTEN_PORT}..."
+echo "Running with PID: $$"
 echo "Waiting for commands from remote host..."
 echo ""
 
@@ -38,6 +66,7 @@ while true; do
         else
             echo "[$(date)] Unknown type: $ITEM_TYPE"
         fi
+
         echo ""
     fi
 done
